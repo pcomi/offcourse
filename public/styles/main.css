@@ -1,0 +1,94 @@
+#map {
+    margin-left: 20vh;
+    height: 80vh;
+    width: 80%;
+}
+
+body {
+    background-color: #17011e;
+    color: #9f26c4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo img {
+    height: 15vh;
+}
+
+.nav-items {
+    list-style: none;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.nav-items li {
+    margin: 0 15px;
+}
+
+.nav-items a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-items a:hover {
+    color: #ddd;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info input {
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #444;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.user-info .logout-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.user-info .logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
