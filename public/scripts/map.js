@@ -1,7 +1,6 @@
 var map = L.map('map').setView([45.9432, 24.9668], 7);
 
-var normalTiles = L.tileLayer('https://api.maptiler.com/maps/backdrop/{z}/{x}/{y}.png?key=EYzsOICzwnKzN6KnoMqN', 
-{
+var normalTiles = L.tileLayer('https://api.maptiler.com/maps/backdrop/{z}/{x}/{y}.png?key=EYzsOICzwnKzN6KnoMqN', {
     tileSize: 512,
     zoomOffset: -1,
     minZoom: 1,
@@ -9,8 +8,7 @@ var normalTiles = L.tileLayer('https://api.maptiler.com/maps/backdrop/{z}/{x}/{y
     attribution: '&copy; MapTiler &copy; OpenStreetMap contributors'
 });
 
-var satelliteTiles = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=EYzsOICzwnKzN6KnoMqN', 
-{
+var satelliteTiles = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=EYzsOICzwnKzN6KnoMqN', {
     tileSize: 512,
     zoomOffset: -1,
     minZoom: 1,
@@ -20,8 +18,7 @@ var satelliteTiles = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x
 
 normalTiles.addTo(map);
 
-var baseMaps = 
-{
+var baseMaps = {
     "Dark": normalTiles,
     "Satellite": satelliteTiles
 };
@@ -32,62 +29,66 @@ navigator.geolocation.watchPosition(success, error);
 
 let marker, circle, zoomed;
 
-function success(pos)
-{
+function success(pos) {
     const lat = pos.coords.latitude;
     const long = pos.coords.longitude;
     const accuracy = pos.coords.accuracy;
 
-    marker = L.marker([lat, long]).addTo(map);
-    circle = L.circle([lat, long], { radius: accuracy }).addTo(map);
+    if (marker) {
+        marker.setLatLng([lat, long]);
+    } else {
+        marker = L.marker([lat, long]).addTo(map);
+    }
 
-    if(!zoomed)
-    {
+    if (circle) {
+        circle.setLatLng([lat, long]);
+        circle.setRadius(accuracy);
+    } else {
+        circle = L.circle([lat, long], { radius: accuracy }).addTo(map);
+    }
+
+    if (!zoomed) {
         zoomed = map.fitBounds(circle.getBounds());
     }
 
     map.setView([lat, long]);
 }
 
-function error(err)
-{
-    if(err.code === 1)
-    {
+function error(err) {
+    if (err.code === 1) {
         alert("Enable location to see current locations");
-    }
-    else
-    {
+    } else {
         alert("Error getting current location");
     }
 }
 
-function loadScript(url, callback) 
-{
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    if (script.readyState) 
-    { 
-        script.onreadystatechange = function () 
-        {
-            if (script.readyState == "loaded" || script.readyState == "complete") 
-            {
-                script.onreadystatechange = null;
-                callback();
-            }
-        };
-    } 
-    else
-    {
-        script.onload = function () 
-        {
-            callback();
-        };
-    }
-    script.src = url;
-    document.getElementsByTagName("head")[0].appendChild(script);
-}
+addLocationsToMap(map); ///getLocations.js
 
-loadScript('/scripts/getLocations.js', function () 
-{
-    addLocationsToMap(map);
+const addRandomLocation = async () => {
+    try {
+        console.log('Button clicked to add a random location');
+        const response = await fetch('/api/locations/random', { method: 'POST' });
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log('Response from adding location:', result);
+
+        if (result.location) {
+            L.marker([result.location.latitude, result.location.longitude], { icon: locationIcon })
+                .addTo(map)
+                .bindPopup(result.location.name);
+        } else {
+            alert('Failed to add location');
+        }
+    } catch (error) {
+        console.error('Error adding location:', error);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const addButton = document.getElementById('addLocationBtn');
+    if (addButton) {
+        addButton.addEventListener('click', addRandomLocation);
+    }
 });
