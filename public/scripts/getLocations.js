@@ -1,15 +1,15 @@
 const locationIcon = L.icon({
-    iconUrl: '../icons/marker.png',
+    iconUrl: '/icons/marker.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
 });
 
-async function fetchLocations()
+async function fetchLocations() 
 {
     try 
     {
-        const response = await fetch('/locations');
+        const response = await fetch('/api/locations');
         if (!response.ok) 
         {
             throw new Error('Network response was not ok');
@@ -30,14 +30,14 @@ async function addLocationsToMap(map)
     
     console.log('Locations to add to map:', locations);
     
-    locations.forEach(location => 
-    {
+    locations.forEach(location => {
         L.marker([location.latitude, location.longitude], { icon: locationIcon })
             .addTo(map)
             .bindPopup(location.name);
     });
 }
 
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) 
+{
     module.exports = addLocationsToMap;
 }

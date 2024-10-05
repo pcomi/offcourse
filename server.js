@@ -1,13 +1,11 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const { getLocations } = require('./controllers/location-controller');
+const locationRoutes = require('./routes/location-routes');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 8001;
-
-console.log('SECRET_KEY:', process.env.SECRET_KEY);///debug
 
 const mongoURI = 'mongodb://localhost:27017/Off-course';
 
@@ -17,19 +15,18 @@ mongoose.connect(mongoURI)
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/locations', getLocations);
+app.use(express.json());
 
-app.get('/', (req, res) => 
-{
-    res.sendFile(path.join(__dirname, 'public', 'map.html'));
-});
+app.use('/api', locationRoutes);
 
-app.get('/main', (req, res) =>
-{
+app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'main.html'));
 });
 
-app.listen(PORT, () => 
-{
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
+app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
