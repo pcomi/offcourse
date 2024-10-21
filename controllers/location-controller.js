@@ -1,8 +1,10 @@
-const getRandomLocationFromGoogleMaps = require('../utils/location-utils').getRandomLocationFromGoogleMaps;
+const axios = require('axios');
 const Location = require('../models/location-model');
+const { getAllLocationsFromGoogleMaps, gridSearch } = require('../utils/location-utils');
 
 const getLocations = async (req, res) => {
-    try {
+    try 
+    {
         const locations = await Location.find();
         console.log('Fetched locations:', locations);
         res.json(locations);
@@ -14,32 +16,41 @@ const getLocations = async (req, res) => {
     }
 };
 
-const addRandomLocation = async (req, res) => {
-    try {
-        const location = await getRandomLocationFromGoogleMaps();
-        
-        if (!location) 
+const addAllLocations = async (req, res) => {
+    const { lat, long, radius = 150 } = req.body; 
+
+    const apiKey = 'AIzaSyC9S6sNtOMkoSQPR435hofXAqcU0lWYCXM';
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=${radius}&key=${apiKey}`;
+
+    try 
+    {
+        console.log('Making API request:', apiUrl);
+        const response = await axios.get(apiUrl);
+        const locations = response.data.results;
+
+        const savedLocations = [];
+        for (const location of locations) 
         {
-            return res.status(500).json({ error: 'Failed to fetch location' });
+            const newLocation = new Location({
+                name: location.name,
+                latitude: location.geometry.location.lat,
+                longitude: location.geometry.location.lng,
+            });
+
+            await newLocation.save();
+            savedLocations.push(newLocation);
         }
 
-        const newLocation = new Location({
-            name: location.name,
-            latitude: location.latitude,
-            longitude: location.longitude
-        });
-        
-        await newLocation.save();
-        res.json({ message: 'Location added to database', location: newLocation });
+        res.json({ message: 'Locations added to database', locations: savedLocations });
     } 
-    catch (err) 
+    catch (error) 
     {
-        console.error('Error adding location:', err);
-        res.status(500).json({ error: 'Error adding location' });
+        console.error('Error fetching locations from Google API:', error);
+        res.status(500).json({ error: 'Error adding locations' });
     }
 };
 
 module.exports = {
     getLocations,
-    addRandomLocation
+    addAllLocations
 };

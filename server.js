@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const axios = require('axios');
 const path = require('path');
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/location-routes');
@@ -12,6 +14,13 @@ const mongoURI = 'mongodb://localhost:27017/Off-course';
 mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
+
+    app.use(cors({
+        origin: '*',
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+    }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
