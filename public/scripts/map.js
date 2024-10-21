@@ -34,20 +34,27 @@ function success(pos) {
     const long = pos.coords.longitude;
     const accuracy = pos.coords.accuracy;
 
-    if (marker) {
+    if (marker) 
+    {
         marker.setLatLng([lat, long]);
-    } else {
+    } 
+    else 
+    {
         marker = L.marker([lat, long]).addTo(map);
     }
 
-    if (circle) {
+    if (circle) 
+    {
         circle.setLatLng([lat, long]);
         circle.setRadius(accuracy);
-    } else {
+    } 
+    else 
+    {
         circle = L.circle([lat, long], { radius: accuracy }).addTo(map);
     }
 
-    if (!zoomed) {
+    if (!zoomed) 
+    {
         zoomed = map.fitBounds(circle.getBounds());
     }
 
@@ -55,40 +62,149 @@ function success(pos) {
 }
 
 function error(err) {
-    if (err.code === 1) {
+    if (err.code === 1) 
+    {
         alert("Enable location to see current locations");
-    } else {
+    } 
+    else 
+    {
         alert("Error getting current location");
     }
 }
 
 addLocationsToMap(map); ///getLocations.js
 
-const addRandomLocation = async () => {
-    try {
-        console.log('Button clicked to add a random location');
-        const response = await fetch('/api/locations/random', { method: 'POST' });
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const result = await response.json();
-        console.log('Response from adding location:', result);
+let gridBoxes = [];
 
-        if (result.location) {
-            L.marker([result.location.latitude, result.location.longitude], { icon: locationIcon })
+const addAllLocations = async (lat, long, radius = 150) => {
+    const apiUrl = '/api/locations/new';
+    try 
+    {
+        console.log('Sending request to server:', apiUrl);
+        const response = await axios.post(apiUrl, { lat, long, radius });
+        const locations = response.data.locations;
+
+        map.eachLayer(layer => {
+            if (layer instanceof L.Marker) 
+            {
+                map.removeLayer(layer);
+            }
+        });
+
+        locations.forEach(location => {
+            const locationLat = location.latitude;
+            const locationLng = location.longitude;
+            const locationName = location.name;
+
+            L.marker([locationLat, locationLng], { icon: locationIcon })
                 .addTo(map)
-                .bindPopup(result.location.name);
-        } else {
-            alert('Failed to add location');
-        }
-    } catch (error) {
-        console.error('Error adding location:', error);
+                .bindPopup(locationName);
+        });
+
+        console.log('Fetched locations:', locations);
+    } 
+    catch (error) 
+    {
+        console.error('Error adding locations:', error);
     }
+};
+
+const searchInGrid = (row, col) => {
+    const gridBox = gridBoxes.find(box => box.row === row && box.col === col);
+    if (!gridBox) 
+    {
+        alert(`Grid not found for Row: ${row}, Column: ${col}`);
+        return;
+    }
+
+    const cellSize = 0.002;
+    const lat = gridBox.coords.lat + cellSize * 2;
+    const long = gridBox.coords.long + cellSize * 2;
+
+    addAllLocations(lat, long);
+    console.log('Found Grid:', gridBox);
+};
+
+const gridMap = async () => {
+    console.log('Button clicked to grid');
+
+    const maxLatd = 47.1601;
+    const maxLong = 27.6007;
+    const minLatd = 47.1347;
+    const minLong = 27.5342;
+    const cellSize = 0.002;
+
+    const latSteps = Math.ceil((maxLatd - minLatd) / cellSize);
+    const longSteps = Math.ceil((maxLong - minLong) / cellSize);
+
+    console.log('Grid map:', latSteps, longSteps);
+
+    for (let i = 0; i < latSteps; i++) 
+    {
+        for (let j = 0; j < longSteps; j++) 
+        {
+            const lat = minLatd + (i * 2 * cellSize);
+            const long = minLong + (j * 2 * cellSize);
+            
+            gridBoxes.push({
+                row: i + 1,
+                col: j + 1,
+                coords: { lat, long },
+                size: cellSize,
+            });
+
+            gridBox(lat, long, cellSize, i, j);
+        }
+    }
+};
+
+const gridBox = (lat, lng, size, row, col) => {
+
+    const boxCoords = [
+        [lat + size, lng - size],
+        [lat + size, lng + size],
+        [lat - size, lng + size],
+        [lat - size, lng - size],
+        [lat + size, lng - size]
+    ];
+
+    const boxName = `Box Row ${row} Column ${col}`
+
+    L.polygon(boxCoords, { color: 'red', weight: 2, fillOpacity: 0.5 })
+        .addTo(map)
+        .bindPopup(boxName);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('addLocationBtn');
-    if (addButton) {
-        addButton.addEventListener('click', addRandomLocation);
+    if (addButton) 
+    {
+        addButton.addEventListener('click', addAllLocations);
+    }
+    
+    const gridButton = document.getElementById('showGridsBtn');
+    if(gridButton) 
+    {
+        gridButton.addEventListener('click', gridMap);
+    }
+
+    const addGridButton = document.getElementById('gridBtn');
+    if(addGridButton) 
+    {
+        addGridButton.addEventListener('click', () => {
+            const row = document.getElementById('row').value;
+            const col = document.getElementById('col').value;
+
+            if(!row || !col)
+            {
+                alert('Please enter row and column');
+                return;
+            }
+
+            const rowNum = parseInt(row, 10);
+            const colNum = parseInt(col, 10);
+
+            searchInGrid(rowNum, colNum, 0.02);
+        });
     }
 });
