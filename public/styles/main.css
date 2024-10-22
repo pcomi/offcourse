@@ -1,15 +1,27 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/fonts/Font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-image: url('/images/bg3.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #07011e;
+    color: #ffffff;
+    font-family: 'CustomFont', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
 #map {
     margin-left: 20vh;
     height: 80vh;
     width: 80%;
-}
-
-body {
-    background-color: #17011e;
-    color: #9f26c4;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
 }
 
 .navbar {

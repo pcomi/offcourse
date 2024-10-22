@@ -4,6 +4,7 @@ const axios = require('axios');
 const path = require('path');
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/location-routes');
+const userRoutes = require('./routes/user-routes');
 require('dotenv').config();
 
 const app = express();
@@ -27,6 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 app.use('/api', locationRoutes);
+
+app.use('/api/users', userRoutes);
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
 
 app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'main.html'));
