@@ -3,6 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const locationRoutes = require('./routes/location-routes');
 const userRoutes = require('./routes/user-routes');
 require('dotenv').config();
@@ -24,8 +25,8 @@ mongoose.connect(mongoURI)
     }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api', locationRoutes);
 
@@ -37,6 +38,10 @@ app.get('/login', (req, res) => {
 
 app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'main.html'));
+});
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'about-us.html'));
 });
 
 app.get('/', (req, res) => {

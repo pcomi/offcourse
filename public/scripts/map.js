@@ -18,7 +18,8 @@ var satelliteTiles = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x
 
 normalTiles.addTo(map);
 
-var baseMaps = {
+var baseMaps = 
+{
     "Dark": normalTiles,
     "Satellite": satelliteTiles
 };
@@ -61,7 +62,8 @@ function success(pos) {
     map.setView([lat, long]);
 }
 
-function error(err) {
+function error(err) 
+{
     if (err.code === 1) 
     {
         alert("Enable location to see current locations");
@@ -70,6 +72,64 @@ function error(err) {
     {
         alert("Error getting current location");
     }
+}
+
+///cookie functions refactor later
+function getCookie(name) 
+{
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) 
+    {
+        console.log(cookie);
+        const [cookieName, ...cookieParts] = cookie.split('=');
+        const trimmedCookieName = cookieName.trim();
+        if (trimmedCookieName === name) 
+        {
+            return decodeURIComponent(cookieParts.join('='));
+        }
+    }
+    return null;
+}
+
+const getUsernameFromToken = () => {
+    const token = getCookie('token');
+
+    if (!token) 
+    {
+        console.error('Token cookie not found');
+        return null;
+    }
+
+    try 
+    {
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        return decodedToken.username || null;
+    } 
+    catch (e) 
+    {
+        console.error('Error decoding token:', e);
+        return null;
+    }
+};
+
+const populateUsernameField = () => {
+    console.log("populate function");
+    const usernameField = document.getElementById('username');
+    const username = getUsernameFromToken();
+
+    console.log("Username field found:", usernameField);
+    console.log("Extracted username:", username);
+
+    if (username) 
+    {
+        usernameField.value = username;
+    }
+};
+
+function logout()
+{
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    window.location.href = '/login';
 }
 
 addLocationsToMap(map); ///getLocations.js
@@ -176,6 +236,15 @@ const gridBox = (lat, lng, size, row, col) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    populateUsernameField();
+
+    const logoutButton = document.getElementById('logoutButton');
+    if(logoutButton)
+    {
+        logoutButton.addEventListener('click', logout);
+    }
+
     const addButton = document.getElementById('addLocationBtn');
     if (addButton) 
     {

@@ -14,6 +14,7 @@ document.getElementById('toggleSignup').addEventListener('click', function()
     document.getElementById('toggleLogin').classList.remove('active');
 });
 
+//signup
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -25,8 +26,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     {
         try 
         {
-            const response = await fetch('/api/users/signup', 
-            {
+            const response = await fetch('/api/users/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,9 +35,9 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
             });
 
             const data = await response.json();
-            if (response.ok) 
-            {
+            if (response.ok) {
                 alert(data.message);
+                window.location.href = '/main';
             } 
             else 
             {
@@ -47,6 +47,47 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
         catch (error) 
         {
             alert('Error signing up. Please try again later.');
+        }
+    } 
+    else 
+    {
+        alert('Please fill in all fields.');
+    }
+});
+
+//login
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+
+    if (username && password) {
+        try 
+        {
+            const response = await fetch('/api/users/signin', 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) 
+            {
+                alert(data.message);
+                window.location.href = '/main';
+            } 
+            else 
+            {
+                alert(data.message);
+            }
+        } 
+        catch (error) 
+        {
+            alert('Error logging in. Please try again later.');
         }
     } 
     else 
