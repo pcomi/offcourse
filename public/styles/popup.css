@@ -1,0 +1,21 @@
+#custom-popup {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 200px;
+}
+
+#custom-popup #close-popup {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}

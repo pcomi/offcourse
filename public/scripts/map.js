@@ -74,13 +74,11 @@ function error(err)
     }
 }
 
-///cookie functions refactor later
 function getCookie(name) 
 {
     const cookies = document.cookie.split(';');
     for (let cookie of cookies) 
     {
-        console.log(cookie);
         const [cookieName, ...cookieParts] = cookie.split('=');
         const trimmedCookieName = cookieName.trim();
         if (trimmedCookieName === name) 
@@ -113,12 +111,8 @@ const getUsernameFromToken = () => {
 };
 
 const populateUsernameField = () => {
-    console.log("populate function");
     const usernameField = document.getElementById('username');
     const username = getUsernameFromToken();
-
-    console.log("Username field found:", usernameField);
-    console.log("Extracted username:", username);
 
     if (username) 
     {
@@ -132,7 +126,12 @@ function logout()
     window.location.href = '/login';
 }
 
-addLocationsToMap(map); ///getLocations.js
+function exploreLocation(locationName) 
+{
+    console.log(`Exploring location: ${locationName}`);
+}
+
+addLocationsToMap(map);
 
 let gridBoxes = [];
 
@@ -156,9 +155,18 @@ const addAllLocations = async (lat, long, radius = 150) => {
             const locationLng = location.longitude;
             const locationName = location.name;
 
-            L.marker([locationLat, locationLng], { icon: locationIcon })
-                .addTo(map)
-                .bindPopup(locationName);
+            const popupContent = `
+                <span>
+                    ${locationName}<br>
+                    <span id="explore-${location.id}" style="cursor: pointer; color: blue; text-decoration: underline;">
+                        Explore
+                    </span>
+                </span>
+            `;
+
+            const marker = L.marker([locationLat, locationLng], { icon: locationIcon }).addTo(map);
+            marker.bindPopup(popupContent);
+
         });
 
         console.log('Fetched locations:', locations);
@@ -219,7 +227,6 @@ const gridMap = async () => {
 };
 
 const gridBox = (lat, lng, size, row, col) => {
-
     const boxCoords = [
         [lat + size, lng - size],
         [lat + size, lng + size],
@@ -236,7 +243,6 @@ const gridBox = (lat, lng, size, row, col) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-
     populateUsernameField();
 
     const logoutButton = document.getElementById('logoutButton');

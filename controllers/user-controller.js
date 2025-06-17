@@ -9,12 +9,13 @@ exports.signup = async (req, res) => {
     {
         console.log('Signup request received:', req.body);
         const existingUser = await User.findOne({ username });
-        if (existingUser) {
+        if (existingUser) 
+        {
             return res.status(400).json({ message: 'Username already exists.' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword, email });
+        const newUser = new User({ username, password: hashedPassword, email, level: 1 });
         await newUser.save();
 
         const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.SECRET_KEY, { expiresIn: '1h' });
@@ -58,5 +59,21 @@ exports.signin = async (req, res) => {
     {
         console.error('Error during signin:', error);
         res.status(500).json({ message: 'Server error' });
+    }
+};
+
+exports.leaderboard = async (req, res) => {
+    const { username, level } = req.body;
+
+    try 
+    {
+        console.log('Leaderboard request received:', req.body);
+        const users = await User.find({ level: { $gte: 1 } }).sort({ level: -1 }).limit(5);
+        res.json(users);
+    } 
+    catch (error) 
+    {
+        console.error('Error fetching leaderboard:', error);
+        res.status(500).json({ message: 'Error fetching leaderboard' });
     }
 };
