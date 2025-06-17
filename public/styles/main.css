@@ -104,3 +104,31 @@ body {
     align-items: center;
     margin-top: 20px;
 }
+
+.leaflet-popup-content {
+    font-size: 14px;
+    color: #333;
+}
+
+.leaflet-popup-content strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #07011e;
+    font-size: 16px;
+}
+
+.leaflet-popup-content button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+    transition: background-color 0.3s;
+}
+
+.leaflet-popup-content button:hover {
+    background-color: #2980b9;
+}

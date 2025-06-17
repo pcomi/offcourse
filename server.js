@@ -44,8 +44,12 @@ app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'about-us.html'));
 });
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+app.get('/top', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'top.html'));
+});
+
+app.get('/403', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', '403.html'));
 });
 
 app.listen(PORT, () => {

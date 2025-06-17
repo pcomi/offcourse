@@ -35,9 +35,27 @@ const addLocationsToMap = async (map) => {
         locations.forEach(location => {
             if (location.latitude != null && location.longitude != null) 
             {
-                L.marker([location.latitude, location.longitude], { icon: locationIcon })
-                    .addTo(map)
-                    .bindPopup(location.name);
+                const locationLat = location.latitude;
+                const locationLng = location.longitude;
+                const locationName = location.name;
+
+                const popupContent = `
+                    <span>
+                        ${locationName}<br>
+                        <span id="explore-${location.id}" style="cursor: pointer; color: blue; text-decoration: underline;">
+                            Explore
+                        </span>
+                    </span>
+                `;
+
+                const marker = L.marker([locationLat, locationLng], { icon: locationIcon }).addTo(map);
+                marker.bindPopup(popupContent);
+
+                marker.on('popupopen', () => {
+                    document.getElementById(`explore-${location.id}`).addEventListener('click', () => {
+                        console.log(`Exploring location: ${locationName}`);///JUST TESTING FOR NOW
+                    });
+                });
             } 
             else 
             {
