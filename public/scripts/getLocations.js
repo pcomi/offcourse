@@ -40,20 +40,29 @@ const addLocationsToMap = async (map) => {
                 const locationName = location.name;
 
                 const popupContent = `
-                    <span>
-                        ${locationName}<br>
-                        <span id="explore-${location.id}" style="cursor: pointer; color: blue; text-decoration: underline;">
-                            Explore
-                        </span>
-                    </span>
+                    <div style="text-align: center;">
+                        <strong>${locationName}</strong><br>
+                        <small>Score: ${location.score || 1}</small><br>
+                        <button id="explore-${location._id}" style="
+                            background-color: #3498db;
+                            color: white;
+                            border: none;
+                            padding: 8px 15px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            margin-top: 5px;
+                            font-size: 14px;
+                        ">View Details</button>
+                    </div>
                 `;
 
                 const marker = L.marker([locationLat, locationLng], { icon: locationIcon }).addTo(map);
                 marker.bindPopup(popupContent);
 
                 marker.on('popupopen', () => {
-                    document.getElementById(`explore-${location.id}`).addEventListener('click', () => {
-                        console.log(`Exploring location: ${locationName}`);///JUST TESTING FOR NOW
+                    document.getElementById(`explore-${location._id}`).addEventListener('click', () => {
+                        console.log('Navigating to location:', location._id); // Debug log
+                        window.location.href = `/details?id=${location._id}`;
                     });
                 });
             } 

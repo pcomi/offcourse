@@ -100,4 +100,89 @@ V.~Kumar and P.~Sharma, ``Exploring the model-view-controller (mvc)
   \url{https://www.researchgate.net/publication/380197155_Exploring_The_Model-View-Controller_MVC_Architecture_A_Broad_Analysis_of_Market_and_Technological_Applications}
 \BIBentrySTDinterwordspacing
 
+\bibitem{vanillaVsFrameworks}
+\BIBentryALTinterwordspacing
+R.~Nagubandi. (2023) The great debate: Vanilla js vs modern frameworks.
+  Accessed 13 June 2025. [Online]. Available:
+  \url{https://medium.com/@rahulnagubandi/the-great-debate-vanilla-js-vs-modern-frameworks-0768ff83c547}
+\BIBentrySTDinterwordspacing
+
+\bibitem{leafletJs}
+\BIBentryALTinterwordspacing
+{Leaflet}. (2025) Leaflet - an open-source javascript library for
+  mobile-friendly interactive maps. Accessed 13 June 2025. Describes
+  Leaflet’s performance, usability, and plugin ecosystem. [Online].
+  Available: \url{https://leafletjs.com}
+\BIBentrySTDinterwordspacing
+
+\bibitem{axiosVsFetch}
+\BIBentryALTinterwordspacing
+N.~Barwicki. (2023) Why do people use axios instead of fetch? Highlights
+  automatic JSON parsing as a key advantage of Axios over Fetch. [Online].
+  Available:
+  \url{https://dev.to/nikolasbarwicki/why-do-people-use-axios-instead-of-fetch-5apk}
+\BIBentrySTDinterwordspacing
+
+\bibitem{JavaScript}
+\BIBentryALTinterwordspacing
+Codecademy. (2024) What is javascript? Accessed 13 June 2025. [Online].
+  Available: \url{https://www.codecademy.com/articles/language/javascript}
+\BIBentrySTDinterwordspacing
+
+\bibitem{blowfishCipher}
+\BIBentryALTinterwordspacing
+{Wikipedia contributors}, ``{Bcrypt --- Wikipedia{,} The Free Encyclopedia},''
+  2024, [Online; accessed 13-June-2025]. [Online]. Available:
+  \url{https://en.wikipedia.org/wiki/Bcrypt}
+\BIBentrySTDinterwordspacing
+
+\bibitem{gitHub}
+\BIBentryALTinterwordspacing
+{Code Institute}. (2025) How github might benefit you: What it is and how to
+  use it. Having started as a developer’s collaborative platform, GitHub is
+  now the most significant cloud-based storage space of collaborative software
+  projects that exist on the planet. [Online]. Available:
+  \url{https://codeinstitute.net/global/blog/github-might-benefit-using/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{multer}
+\BIBentryALTinterwordspacing
+{Multer Contributors}. (2025) Multer - node.js middleware for handling
+  multipart/form-data. “Multer is a node.js middleware for handling
+  multipart/form-data, which is primarily used for uploading files…”.
+  [Online]. Available: \url{https://www.npmjs.com/package/multer}
+\BIBentrySTDinterwordspacing
+
+\bibitem{raspberryPi}
+\BIBentryALTinterwordspacing
+{Raspberry Pi Foundation}. (2025) Raspberry pi high-performance computing for
+  home and business. “Whatever your application and whatever your scale,
+  Raspberry Pi offers cost‑effective, high‑performance computing for
+  businesses and the home.”. [Online]. Available:
+  \url{https://www.raspberrypi.com}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nginX}
+\BIBentryALTinterwordspacing
+{Wikipedia contributors}. (2025) Nginx --- wikipedia, the free encyclopedia.
+  [Online; accessed 13-June-2025]. [Online]. Available:
+  \url{https://en.wikipedia.org/wiki/Nginx}
+\BIBentrySTDinterwordspacing
+
+\bibitem{roTLD}
+\BIBentryALTinterwordspacing
+{RoTLD}. (2025) Rotld - registrul domeniilor .ro. RoTLD. RoTLD este autoritatea
+  oficială pentru domeniile .ro. [Online]. Available:
+  \url{https://www.rotld.ro/home/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{noipDNS}
+\BIBentryALTinterwordspacing
+{No-IP Support}. (2025) Free dynamic dns – getting started guide (ip
+  version). No-IP. This will allow you to run your servers or check your
+  devices remotely at your home or business without a static IP address.
+  [Online]. Available:
+  \url{https://www.noip.com/support/knowledgebase/free-dynamic-dns-getting-started-guide-ip-version}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

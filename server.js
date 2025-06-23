@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const locationRoutes = require('./routes/location-routes');
 const userRoutes = require('./routes/user-routes');
+const locationRequestRoutes = require('./routes/location-request-routes');
 require('dotenv').config();
 
 const app = express();
@@ -32,6 +33,8 @@ app.use('/api', locationRoutes);
 
 app.use('/api/users', userRoutes);
 
+app.use('/api', locationRequestRoutes);
+
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
@@ -50,6 +53,10 @@ app.get('/top', (req, res) => {
 
 app.get('/403', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', '403.html'));
+});
+
+app.get('/details', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'details.html'));
 });
 
 app.listen(PORT, () => {
