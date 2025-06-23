@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Details - Off Course Map</title>
+    <link rel="stylesheet" href="/styles/details.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/main" class="logo">
+                <img src="/logo/logo.jpeg" alt="Logo">
+            </a>
+            <ul class="nav-items">
+                <li><a href="/main">Map</a></li>
+                <li><a href="/top">Top</a></li>
+                <li><a href="/about">About Us</a></li>
+            </ul>
+            <div class="user-info">
+                <input id="username" type="text" value="@username" readonly>
+                <button id="logoutButton" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="back-button">
+            <button onclick="history.back()">&larr; Back to Map</button>
+        </div>
+
+        <div class="location-detail">
+            <div class="location-header">
+                <h1 id="locationName">Loading...</h1>
+                <div class="location-meta">
+                    <span id="locationOrigin" class="origin-badge">Origin</span>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="main-content">
+                    <div class="info-section">
+                        <div class="info-card">
+                            <h3>Information</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <strong>Address:</strong>
+                                    <span id="locationAddress">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Coordinates:</strong>
+                                    <span id="locationCoords">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Score:</strong>
+                                    <span id="locationScore">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Description</h3>
+                            <p id="locationDescription">No description available.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="map-section">
+                        <h3>Location</h3>
+                        <div id="detailMap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/location-detail.js"></script>
+</body>
+</html>

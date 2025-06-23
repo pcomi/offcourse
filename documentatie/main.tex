@@ -12,11 +12,9 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-% Page configuration
 \geometry{left=3cm, right=2cm, top=2.5cm, bottom=2.5cm}
 \onehalfspacing
 
-% Hyperref configuration
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
@@ -25,7 +23,6 @@
     citecolor=black
 }
 
-% Code listings configuration
 \lstset{
     basicstyle=\ttfamily\small,
     keywordstyle=\color{blue},
@@ -39,7 +36,6 @@
 
 \begin{document}
 
-% Title page (according to Annex 3)
 \begin{titlepage}
     \centering
     {\Large \textbf{ALEXANDRU IOAN CUZA UNIVERSITY OF IAȘI}}\\[0.5cm]
@@ -59,7 +55,6 @@
     {\large 2025}
 \end{titlepage}
 
-% Declarations (according to annexes 4 and 5)
 \chapter*{Declaration of Originality}
 \addcontentsline{toc}{chapter}{Declaration of Originality}
 
@@ -88,11 +83,9 @@ Iași, [date] \hfill Graduate Popa Cosmin-George
 
 \newpage
 
-% Table of contents
 \tableofcontents
 \newpage
 
-% Abstract
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
@@ -106,7 +99,6 @@ Testing results highlight that the website is functional for multiple users at t
 
 \newpage
 
-% Introduction
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -247,7 +239,6 @@ This research contributes to the academic field of web application development, 
 
 \newpage
 
-% Contributions
 \chapter*{Personal Contributions}
 \addcontentsline{toc}{chapter}{Personal Contributions}
 
@@ -266,7 +257,6 @@ The main contributions of this work include:
 
 \newpage
 
-% Chapter structure for remaining content
 \chapter{Problem Description}
 \section{Context of Urban Exploration in Romania}
 Urban Exploration is a term not known by many, but slowly gaining popularity in recent years, with the "mainstreamification" of vlogs, social media and personal websites.
@@ -394,6 +384,10 @@ This also creates a fun way to see who in the community is the most active via t
 \subsection{Social Features}
 The social features are, at the moment limited, but for a good reason. The platform will work very closely to the already existing dedicated Discord server, where a sense of community already exists. That is why I believe that adding social features to the application was not a priority.
 
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/discord.png}
+\end{center}
+
 \section{Non-Functional Requirements}
 \subsection{Performance Requirements}
 The website is not a service that requires a lot of processing power, neither on the client side, nor on the server side. Because the amount of locations that have to be loaded is not very high and also the amount of users will not go over the hundreds, the website is great in terms of performance.
@@ -430,113 +424,292 @@ Below is a simplified C4 diagram to show the main business flow of the app, espe
 \end{center}
 
 \subsection{Frontend Architecture}
-% [To be written by student]
+
+The frontend is entirely made in html and css, with the behvaiour being indicated by javascript pieces of code. Each html page is stored in the views folder, whereas the style sheets are in the styles directory, part of the public folder, as seen from the screenshot below:
+
+\includegraphics[width=0.15\textwidth]{images/front.png}
+
+In public, fonts and icons are also stored in their respective folders, all of them being free for commercial use, while the images and logo are all my own.
+
+Below is an image that shows how the main page looks like on the web client for the usual user.
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/ui.png}
+\end{center}
+
 
 \subsection{Backend Architecture}
-% [To be written by student]
+
+As mentioned before, the project fully respects the MVC structure, having a dedicated folder for models, views and controllers, as evident from the screen capture from my code editor.
+
+\includegraphics[width=0.15\textwidth]{images/back.png}
+
+Other than those, there exist a folder for routes for the api, a folder with utility scripts like the one that parses a JSON file or that verifies that the cookie token is valid and, of course, the actual server.js file that starts the server, along the .env file that contains the hidden variables. 
 
 \subsection{Database Design}
-% [To be written by student]
+
+The MongoDB database is quite simple and only contains the necessary tables, those being the one that contains the users, locations, the images, the requests and the comments on locations.
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/database.png}
+\end{center}
+
+Other information that is displayed in the application is either extracted from these tables or calculated.
 
 \chapter{Technology Stack and Implementation}
 \section{Technology Selection Rationale}
+
+All of the technologies chosen for creating this project are very popular in the industry and for good reason. Not only are they efficient, scalable, etc. but also intuitive and easy to understand for a computer science student that is not a professional in terms of creating a website.
+
+Below I will talk about each technology in their respective sections and I will state reasons as to why I chose them.
+
 \subsection{Frontend Technologies}
-% [To be written by student - HTML5/CSS3, JavaScript, Leaflet, Axios]
+The frontend technologies were chosen for both their simplicity and also their efficiency. 
+
+\textbf{HTML5, CSS3 and vanilla Javascript} for the user interface part of the project are enough to create a good looking website that can be accessed both easily on a computer, but also on the go, on a phone. That is why no frameworks have been used like React or Angular, since they can tank the performance of the website for some people. As well as that, I believe that a sophisticated look like the one these types of frameworks could have generated would not be enticing to the users of this application, because what is attractive for them is the concept of the platform, not the way it looks.
+
+This is not a bad choice and is backed by the fact that some of the biggest companies in the world also went with it:"Choosing between Vanilla JS and frameworks isn't about picking a winner - it's about finding the right fit for your project. Netflix's move shows that simplicity can sometimes be the best choice."~\cite{vanillaVsFrameworks}
+
+For mainly the same reasons, \textbf{Leaflet} has also been picked as the solution to displaying the map on the main page. It is fast by using efficient loading strategies, good for mobile, customisable in terms of look and markers and works really well with Google Maps.
+
+"Leaflet is designed with simplicity, performance and usability in mind. It works efficiently across all major desktop and mobile platforms, can be extended with lots of plugins, has a beautiful, easy to use and well-documented API and a simple, readable source code"~\cite{leafletJs} is what the creators of the extension say about it and after using it in this project, I can personally confirm it is true.
+
+The markers for abandoned buildings are a custom icon and there are two modes the map can be in: dark mode (default) and normal mode.
+
+The map has all of the basic features, like a circle around the user point that indicates how accurate the actual location is, zooming in and out and scrolling on the map to anywhere in the country to view any locations and the optimisation that comes directly from the leaflet middleware.
+
+The library that glues everything together is \textbf{Axios}. It is the one that handles communication between the client and the server in both ways. Fetch can also be used, but Axios has some clear advantages over the normal way and those are: easier communication via JSON's "A significant difference between axios and fetch is in handling JSON data. axios automatically transforms the response to JSON format under the hood, allowing you to use the response data directly const data = await response.json()"~\cite{axiosVsFetch}, custom error handling "fetch requires manual conversion of the response to JSON and does not throw errors for HTTP status codes like 400 or 500."~\cite{axiosVsFetch} and many more, for no extra cost of using this library in your project.
 
 \subsection{Backend Technologies}
-% [To be written by student - Node.js, Express.js, bcrypt, JWT, multer, CORS, dotenv]
+
+\textbf{Javascript} works really well to tie in together the frontend and backend parts: "Javascript is a flexible multi-paradigm programming language largely used in the web-development space for both front-end and back-end applications. Whereas HTML and CSS describe the elements on a webpage, code written in JavaScript makes them interactive. A framework such as NodeJS allows back-end code to be written in JavaScript."~\cite{JavaScript}
+
+On top of the advantages mentioned above, \textbf{Node.Js}, the main framework of Javascript has a various collection of libraries that make the development significantly easier and more efficient via the npm system. Some of these packages that have also been used in this project are: jsonwebtoken, bcrypt, dotenv, cors, axios and multer.
+
+So, \textbf{jsonwebtoken} is responsible for storing sessions on the server side, but rather in the browser client via cookies. It is secure because the cookie is always signed, so an attacker would not be able to change information about his session (like changing his level to a higher one or becoming an administrator) because he would need to know the secret signature which is hidden to all users.
+
+*TO PUT SCREENSHOT FROM JWT WITH WORKING COOKIE
+
+jwt.io is a website where developers can test if their cookies are working as expected in terms of data from the heads and especially the payload without extracting them in the code, which is very convinient. The signature password is obviously not available for safety reasons.
+
+The library used for data encryption is \textbf{bcrypt}. The 'b' in its name comes from the Blowfish cypher which is a block cipher notable for "its expensive key setup phase"~\cite{blowfishCipher}
+
+It is expensive because after 'salting' the data, meaning it adds a string to the actual password, it is hashed a number of times, around 64 usually, which ensures that it is immune to rainbow table attacks (existing tables of hashed passwords) or brute force attacks (generating and testing out a lot of passwords), which are the most common and dangerous types of exploits when trying to get into users' accounts.
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/bcrypt.png}
+\end{center}
+
+Cross-Origin Resource Sharing, or \textbf{CORS} is essential for communication between the frontend and backend in a secure way, so no other attackers from unknown addresses can interact with the server in any way. It is very easy to setup, having to just write this line of code when setting up your server: 
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/cors.png}
+\end{center}
+
+The final but the most important file in terms of security is the \textbf{.env} file. It is used for configuration when the sever starts and it houses the private variables needed in the code for development, but that could also be used in a malicious way by attackers if they had access to their values (example: api key), so those variables are declared in that special file and their value in the backend code can be accessed via process.env.variable name.
 
 \subsection{Database and External Services}
-% [To be written by student - MongoDB, Google Maps API, Google Places API]
+
+\textbf{MongoDB} is a database system based on JSON, not on usual SQL, which proves to be quite convienient when working with only JSON's. This makes it so communication doesn't require extra mapping and it is more efficient. As well as that, the schema is very flexible, the admin can just add or remove fields from the object's documents easily, which makes it easier to adapt to extra data that needs to be stored in terms of location (or user) data. As well as that, the connection between the server and the local database is very easy to establish, thanks to the mongoose library: "const mongoURI = 'mongodb://localhost:27017/Off-course';"
+
+The locations that are not user submitted are extracted from the Google Maps database, using the \textbf{Google Places API} in a query like so:
+
+\begin{lstlisting}
+const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${centerLat},${centerLng}&radius=${LOCATION_RADIUS}&key=${GOOGLE_MAPS_API_KEY}`;
+\end{lstlisting}
+
+The parameters that need to be configured are the latitude and longitude coordinates, the radius and the api key provided by Google, generated in the Cloud account.
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/google.png}
+\end{center}
+
+The algorithm to search for new abandoned locations works iteratively. It firstly sections a city into multiple sections, similar to red squares on the map, with each box having a row and column number, which appears when clicked on:
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/grid.png}
+\end{center}
+
+A query or multiple queries can be done in the vicinity of that square via the radius attribute, which ensures that the whole city can be searched without overlapping quries and wasting Google Cloud credits. At maximum, 17 locations can be returned per query, and this is an example of how one such location is sent to us by google in json format:
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/json.png}
+\end{center}
+
+A lot of attributes are sent and more can be added or deleted, but the one that is most useful for this application is the value of business status. Abandoned buildings, obviously, will not have an active business status, rather, it will appear as CLOSED PERMANENTLY or CLOSED TEMPORARILY, instead of OPERATIONAL (these are the only 3 possible values).
+
+The details about these closed locations are then stored in the database, with their origin attribute being set as API, meaning it has yet to be confirmed.
+
+A great tool that was helpful with keeping track of the development process was \textbf{Github}. It's a popular solution for managing working code and it makes sure that: you are up to date when changing anything about the project, you don't accidentally delete something important and you also work in an organised environment:"Having started as a developer's collaborative platform, GitHub is now the most significant cloud-based storage space of collaborative software projects that exist on the planet."~\cite{gitHub}
+
+It is important to know how to use this service as it is used by basically all companies and solo developers out there and it's also a great way to showcase open source code (like this project is) to the world.
+
+The commands to push your new code to your github repository are very easy to follow after you've already created the project. From command line you have to type git add . which adds all the files to Git locally on your pc. After that you do git commit -m and then write a description of what you have worked on. And finally, you enter git push origin branchname, because it is always recommended to work on a different branch and not uploading changes directly to the main branch, as if anything is incorrect, there is no way to revert it. It is important to only push the code after you have achieved everything you set out to do on that branch and after you make sure the code is functional. After that, the application will merge your old code with your new code automatically.
 
 \section{System Implementation}
+
+This section will go into a bit more detail as to how the platform was implemented and how the technologies described before have been integrated.
+
 \subsection{Database Schema Implementation}
-% [To be written by student - Complete MongoDB schemas]
+
+This is the model of a location, basically how it should be stored inside the database by the server.
+
+\begin{lstlisting}
+    const locationSchema = new mongoose.Schema({
+    name: String,
+    latitude: Number,
+    longitude: Number,
+    score: {
+        type: Number,
+        default: 1
+    },
+    origin: String
+});
+\end{lstlisting}
+
+Each object from the database has its own javascript model, created with the schema function from the mongoose library.
+
+As mentioned before, data is validated before being inserted directly into the database from the backend. As well as that, protected fields like the password value is hashed beforehand.
 
 \subsection{API Endpoints Design}
-% [To be written by student - All REST endpoints with examples]
+
+The \textbf{REST-ful API} uses HTTP requests, mainly GET and POST for communication with JSON bodies. The endpoints are declared in the server.js file as seen below.
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/api.png}
+\end{center}
+
+There is a specific api endpoint for the pages, the locations, the users, etc.
+
+Each endpoint has explicit error handling and also status codes for requests, so in case of something going wrong, the reason will be clear from the console logs.
 
 \subsection{Authentication Implementation}
-% [To be written by student - JWT and bcrypt implementation]
+
+The \textbf{verify-token.js} script is responsible for making sure users are logged in and can access pages, by checking wether or not the cookie token created when a user logs in or signs in is valid.
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/signature.png}
+\end{center}
+
+The crucial part is the third one, the one in blue, as that represents the signature of the cookie that dictates to the server wether or not it was created by it or someone else (like an attacker).
+
+The screenshot is taken from JWT.io where cookie headers and payloads can be decrypted to check if they are correct or not.
+
+If the token appears to be incorrect, the user is redirected to the /403 page, being told that he has no access and should sign in or log in. He will not be able to view any other information from the website.
 
 \subsection{File Upload Implementation}
-% [To be written by student - Multer configuration and usage]
 
-\section{Frontend Implementation Details}
-\subsection{Map Integration}
-% [To be written by student - Leaflet + Google Maps implementation]
+After an explorer submits a form for a location and includes a photo, with the help of the multer npm library, the image will get stored in the database for the future.
 
-\subsection{API Communication}
-% [To be written by student - Axios implementation and configuration]
+"Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. Multer adds a body object and a file or files object to the request object. The body object contains the values of the text fields of the form, the file or files object contains the files uploaded via the form."~\cite{multer}
+
 
 \chapter{Testing and Validation}
 \section{Testing Strategy}
-\subsection{Unit Testing}
-% [To be written by student]
 
-\subsection{Integration Testing}
-% [To be written by student]
+The testing that was done for the platform was more so practical rather than with automated validation like unit tests. This is because the target audience of the project is a relatively small community and the testing was made to reflect their behaviour using the website.
 
-\subsection{User Acceptance Testing}
-% [To be written by student]
+\subsection{Functional Testing}
 
-\section{Test Cases Implementation}
-% [To be written by student]
+All of the experimentations to figure out wether or not Off Course is usable, intuitive and safe was carried on by me personally and a friend of mine that is also part of the urbex community.
 
-\section{Performance Testing Results}
-% [To be written by student]
+These are the points that have been tested:
 
-\section{User Feedback and Iterations}
-% [To be written by student]
+\begin{enumerate}
+    \item user registration, logging in and out
+    \item locations submission and viewing
+    \item uploading photos and descriptions
+    \item gamification features like gaining experience and leveling up
+    \item mobile experience
+\end{enumerate}
+
+\section{User Feedback}
+
+The feedback from my friend was positive in terms of looks, the leveling and leaderboard features and mobile experience. It is important to note that after the application is published, changes can be made according to users' suggestions and improvements. Nothing is final.
 
 \chapter{Deployment and Hosting}
 \section{Hosting Solution}
+
+Hosting for the application will happen locally, not in the cloud. The main reason for choosing this approach is because by not relying on Cloud services like Amazon, Microsoft or other lesser known ones, even though they are mostly trustworthy and efficient. The main problem with these is the subscription-like fee you have to pay in order to keep the server running and also not owning the domain you actually host your website to. In terms of scalability and performance, the two options are more or less the same.
+
+*Side note: While at the Faculty of Computer Science, I have deployed multiple projects to the cloud, namely Microsoft Azure, but never have I hosted an app on a raspberry pi, this new experience being a learning point for me personally.
+
 \subsection{Raspberry Pi Deployment}
-% [To be written by student]
+The Raspberry Pi is a small computer that can be used to 
+"Whatever your application and whatever your scale, Raspberry Pi offers cost effective, high performance computing for businesses and the home."~\cite{raspberryPi}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/raspberrypi.png}
+\end{center}
+
+The \textbf{Raspberry Pi Zero 2 W} model is very cost effective, being less than 100 RON online, while at the same time having the following specifications:
+
+\begin{itemize}
+    \item 512MB RAM
+    \item 32GB MicroSD
+    \item ARM Cortex-A53 quad-core processor at 1GHz
+    \item Wi-Fi connectivity for internet access
+    \item 5W power consumption
+\end{itemize}
+
+These specs are more than enough to host a dedicated web applicaiton, especially with the low traffic Off Course expects because of the exclusivity of the users.
+
+The way of setting up the mini computer to run a server is not difficult, the process being simplified by nginx, the proxy service that allows hosting to be created on a router at home "Nginx (pronounced "engine x") is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache. As of April 2025, W3Tech's web server count of all web sites ranked Nginx first with 33.8 percent."~\cite{nginX}
+
+Other than that, though, the rest of the process is quite straight forward, just having to set up Node.js, MongoDB and the source code on the Raspberry Pi in order to host it.
 
 \subsection{Domain and DNS Configuration}
-% [To be written by student]
 
-\section{Production Environment Setup}
-% [To be written by student]
+A .ro domain (offcourse.ro) has been registered for Off Course on the official Domain Registry of Romania - \textbf{ROTLD}. "RoTLD este autoritatea oficială (registru) pentru domeniile .ro. Asigurăm că fiecare domeniu .ro este disponibil, din punct de vedere tehnic și că acesta este înregistrat o singură dată la nivel mondial."~\cite{roTLD}
 
-\section{Monitoring and Maintenance}
-% [To be written by student]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/dns.png}
+\end{center}
 
-% Conclusions
+The main issue that comes with using a wifi router provided by an Internet Service Provider is that the external IP address it has changes all the time. One way to counter this is to use a service like noip.com. 
+
+What it does is it monitors the IP address of the router and when it changes, it will update it on the DNS. This creates the same behaviour as a static IP address that is needed for having the website up indefinitely. The best part about it is that a user of their platform can register one hostname for free: "This will allow you to run your servers or check your devices remotely at your home or business without a static IP address."~\cite{noipDNS}
+
+\section{Production and Maintenance}
+
+After having the website up and running, there are a couple of ways to check wether or not it is running correctly. 
+
+Nginx has a feature that tracks usage patterns in their logs. MongoDB can monitor the database performance and, of course, custom loggings from the server can keep track of internal operations.
+
+As the application grows and after looking at these metrics, it can be determined wether or not improvements can be made in terms of refactoring or rewriting code to optimise it or maybe switching to a cloud-based hosting system.
+
 \chapter*{Conclusions}
 \addcontentsline{toc}{chapter}{Conclusions}
 
 \section*{Main Contributions}
-% [To be written by student]
+
+In terms of technology, I successfully created an algorithm that can extract closed locations from the Google Maps database. Filtering or querying by this specific attribute is not possible otherwise. The way of doing it is not efficient and can be costly in terms of requests, but no other better way is possible.
+
+From the social aspect point of view, a new and unique plaform for urban exploring enthusiasts in Romania now exists. The application centralises all the existing data and brings new data from Google, it has quality control over the people that are allowed to join it and has a gamification system that can bring a fresh and fun feeling to this hobby.
 
 \section*{Objectives Achievement Analysis}
-% [To be written by student]
+
+All of the objectives mentioned in the first section have been achieved successfully. 
+
+Off Course is a working modern website that has a collection of abandoned locations from Romania, displaying them on a map for all users that are invited. The data is displayed on a map. Users have a lot of features available to them and also using the app is secure, efficient and intuitive.
 
 \section*{Lessons Learned}
-% [To be written by student]
+
+On a personal level, by working on this project I was reminded how to develop a website using HTML, Node.Js and a database such as MongoDB, qualities I learnt during university. On top of that, it was a great learning experience for new things I have never tried before, like using the Google Cloud for API, implementing a working map, setting up a domain and hosting a server on a raspberry pi, locally and many more.
+
+I learnt a lot more things than those on the technical side, like how to research solutions in order to solve a problem that clearly exists in a community, to listen to feedback by test users or future users of the platform and how to manage my time in order to develop such a big project over the course of weeks, while still attending classes at the faculty and going to an internship.
+
+I am sure that all of the lessons I have learned from using these frameworks, cloud services, libraries, type of database and pieces of hardware needed to host the project will help me in my work in the future.
 
 \section*{Future Work and Improvements}
-% [To be written by student]
+
+Speaking on the future, this is a project that I was really passionate about creating and really excited to use, now that it is complete. Updates to improve the application will definitely be made, these being also in terms of what I think would be best moving forward from my own point of view, but also from what the users will say about it.
+
+In the coming months, other than trying to complete the dataset of abandoned locations in the country, a taks which seems almost impossible, I also want to add features to the website, those being mainly improvements that will help in the social aspect, like uploading videos, a friendship system that will also allow you to tag other users and so, gain experience together. But I would also like to improve on the technical side, with a better looking UI and an integration with Instagram (which is the main platform urban explorers also share their work). In the case that it is required for scalability, I would also be open to porting Off Course on the cloud, but for now, I can say I am content with its state and will let the future speak in terms of these measures.
+
+Closing words: Off Course is not only just a web application designed to better my abilities as a programmer and prove my worth after finishing the Faculty of Computer Science. It's a passion project created with much determination and implication for the Urban Exploring community that exists in Romania and needed a solution like this modern, intuitive, responsive, powerful and efficient platform that promotes the preservation of old, forgotten locations and the responsibility of the users in its fanbase. I am proud of this project and I am happy to share it with the world.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
-
-% Appendices
-\appendix
-\chapter{Code Samples}
-% [To be written by student]
-
-\chapter{Database Schema}
-% [To be written by student]
-
-\chapter{API Documentation}
-% [To be written by student]
-
-\chapter{User Interface Screenshots}
-% [To be written by student]
-
-\chapter{Test Results}
-% [To be written by student]
 
 \end{document}
