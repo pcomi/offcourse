@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Off Course Map</title>
+    
+    <script src="/utils/verify-token.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!TokenUtils.isLoggedIn()) {
+                window.location.href = '/403';
+            }
+        });
+    </script>
+    
+    <link rel="stylesheet" href="/styles/admin.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/main" class="logo">
+                <img src="/logo/logo.jpeg" alt="Logo">
+            </a>
+            <ul class="nav-items">
+                <li><a href="/main">Map</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="/about">About Us</a></li>
+            </ul>
+            <div class="user-info">
+                <input id="username" type="text" value="@admin" readonly>
+                <button id="logoutButton" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Admin Panel</h1>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h3 id="pendingCount">0</h3>
+                    <p>Pending Requests</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="approvedCount">0</h3>
+                    <p>Approved Today</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="rejectedCount">0</h3>
+                    <p>Rejected Today</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h2>Location Requests</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="approved">Approved</button>
+                <button class="filter-btn" data-filter="rejected">Rejected</button>
+                <button class="filter-btn" data-filter="all">All</button>
+            </div>
+        </div>
+
+        <div class="requests-container">
+            <div id="loadingSpinner" class="loading">Loading requests...</div>
+            <div id="requestsList" class="requests-list"></div>
+            <div id="noRequests" class="no-requests" style="display: none;">
+                No requests found.
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Detail Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Details</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="requestDetails"></div>
+                <div id="requestImages" class="request-images"></div>
+                <div class="modal-actions">
+                    <button id="approveBtn" class="approve-btn">Approve</button>
+                    <button id="rejectBtn" class="reject-btn">Reject</button>
+                    <button id="closeBtn" class="secondary-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/admin.js"></script>
+</body>
+</html>

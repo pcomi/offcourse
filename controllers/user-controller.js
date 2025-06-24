@@ -15,10 +15,22 @@ exports.signup = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword, email, level: 1 });
+        const newUser = new User({ 
+            username, 
+            password: hashedPassword, 
+            email, 
+            level: 1,
+            experience: 0 
+        });
         await newUser.save();
 
-        const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        // Include level and experience in the token (with fallbacks)
+        const token = jwt.sign({ 
+            id: newUser._id, 
+            username: newUser.username,
+            level: newUser.level || 1,
+            experience: newUser.experience || 0
+        }, process.env.SECRET_KEY, { expiresIn: '1h' });
         
         res.cookie('token', token, { httpOnly: false, secure: false });
         
@@ -49,7 +61,13 @@ exports.signin = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        // Include level and experience in the token (with fallbacks for existing users)
+        const token = jwt.sign({ 
+            id: user._id, 
+            username: user.username,
+            level: user.level || 1,
+            experience: user.experience || 0
+        }, process.env.SECRET_KEY, { expiresIn: '1h' });
         
         res.cookie('token', token, { httpOnly: false, secure: false });
         

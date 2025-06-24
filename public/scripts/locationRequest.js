@@ -1,37 +1,11 @@
-// Get username from token (same function as in other files)
-function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [cookieName, ...cookieParts] = cookie.split('=');
-        const trimmedCookieName = cookieName.trim();
-        if (trimmedCookieName === name) {
-            return decodeURIComponent(cookieParts.join('='));
-        }
-    }
-    return null;
-}
-
-const getUsernameFromToken = () => {
-    const token = getCookie('token');
-    if (!token) {
-        console.error('Token cookie not found');
-        return null;
-    }
-    try {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        return decodedToken.username || null;
-    } catch (e) {
-        console.error('Error decoding token:', e);
-        return null;
-    }
-};
-
 // Modal functionality
 const modal = document.getElementById('requestModal');
 const requestBtn = document.getElementById('requestLocationBtn');
 const closeBtn = document.querySelector('.close');
 const form = document.getElementById('locationRequestForm');
 const getLocationBtn = document.getElementById('getLocationBtn');
+const photoInput = document.getElementById('requestPhotos');
+const filePreview = document.getElementById('filePreview');
 
 // Open modal
 requestBtn.addEventListener('click', () => {
@@ -42,6 +16,7 @@ requestBtn.addEventListener('click', () => {
 closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     form.reset();
+    filePreview.innerHTML = '';
 });
 
 // Close modal when clicking outside
@@ -49,7 +24,49 @@ window.addEventListener('click', (event) => {
     if (event.target === modal) {
         modal.style.display = 'none';
         form.reset();
+        filePreview.innerHTML = '';
     }
+});
+
+// Handle file selection and preview
+photoInput.addEventListener('change', (event) => {
+    const files = event.target.files;
+    filePreview.innerHTML = '';
+    
+    if (files.length > 5) {
+        alert('Maximum 5 files allowed');
+        photoInput.value = '';
+        return;
+    }
+    
+    Array.from(files).forEach((file, index) => {
+        if (file.size > 5 * 1024 * 1024) {
+            alert(`File ${file.name} is too large. Maximum 5MB allowed.`);
+            photoInput.value = '';
+            filePreview.innerHTML = '';
+            return;
+        }
+        
+        if (!file.type.startsWith('image/')) {
+            alert(`File ${file.name} is not an image.`);
+            photoInput.value = '';
+            filePreview.innerHTML = '';
+            return;
+        }
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            previewItem.innerHTML = `
+                <img src="${e.target.result}" alt="Preview ${index + 1}">
+                <span class="file-name">${file.name}</span>
+            `;
+            filePreview.appendChild(previewItem);
+        };
+        reader.readAsDataURL(file);
+    });
 });
 
 // Get user's current location
@@ -74,55 +91,53 @@ getLocationBtn.addEventListener('click', () => {
     }
 });
 
-// Submit form
+// Submit form with files
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
     
-    const username = getUsernameFromToken();
-    if (!username) {
+    const userData = TokenUtils.getUserDataFromToken();
+    if (!userData) {
         alert('You must be logged in to submit a location request.');
         return;
     }
     
     const formData = new FormData(form);
-    const requestData = {
-        name: formData.get('name'),
-        address: formData.get('address'),
-        latitude: parseFloat(formData.get('latitude')),
-        longitude: parseFloat(formData.get('longitude')),
-        description: formData.get('description'),
-        submitted_by: username
-    };
+    formData.append('submitted_by', userData.username);
     
     // Validate required fields
-    if (!requestData.name || !requestData.latitude || !requestData.longitude) {
+    const name = formData.get('name');
+    const latitude = parseFloat(formData.get('latitude'));
+    const longitude = parseFloat(formData.get('longitude'));
+    
+    if (!name || !latitude || !longitude) {
         alert('Please fill in all required fields (Name, Latitude, Longitude).');
         return;
     }
     
     // Validate coordinates
-    if (isNaN(requestData.latitude) || isNaN(requestData.longitude)) {
+    if (isNaN(latitude) || isNaN(longitude)) {
         alert('Please enter valid numbers for latitude and longitude.');
         return;
     }
     
-    if (requestData.latitude < -90 || requestData.latitude > 90) {
+    if (latitude < -90 || latitude > 90) {
         alert('Latitude must be between -90 and 90.');
         return;
     }
     
-    if (requestData.longitude < -180 || requestData.longitude > 180) {
+    if (longitude < -180 || longitude > 180) {
         alert('Longitude must be between -180 and 180.');
         return;
     }
     
     try {
+        const submitBtn = form.querySelector('.submit-btn');
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+        
         const response = await fetch('/api/requests', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestData)
+            body: formData // Don't set Content-Type, let browser set it for multipart
         });
         
         const result = await response.json();
@@ -131,11 +146,16 @@ form.addEventListener('submit', async (event) => {
             alert(result.message);
             modal.style.display = 'none';
             form.reset();
+            filePreview.innerHTML = '';
         } else {
             alert(result.error || 'Error submitting request');
         }
     } catch (error) {
         console.error('Error submitting location request:', error);
         alert('Error submitting request. Please try again.');
+    } finally {
+        const submitBtn = form.querySelector('.submit-btn');
+        submitBtn.textContent = 'Submit Request';
+        submitBtn.disabled = false;
     }
 });

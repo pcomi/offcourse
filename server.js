@@ -35,6 +35,8 @@ app.use('/api/users', userRoutes);
 
 app.use('/api', locationRequestRoutes);
 
+app.use('/utils', express.static(path.join(__dirname, 'utils')));
+
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
@@ -51,12 +53,16 @@ app.get('/top', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'top.html'));
 });
 
-app.get('/403', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', '403.html'));
-});
-
 app.get('/details', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'details.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'admin.html'));
+});
+
+app.get('/403', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', '403.html'));
 });
 
 app.listen(PORT, () => {

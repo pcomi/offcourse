@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     level: { type: Number, default: 1 },
+    experience: { type: Number, default: 0 }, // Renamed from exp to experience
 });
 
 userSchema.pre('save', async function(next) 

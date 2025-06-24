@@ -1,5 +1,6 @@
 const axios = require('axios');
 const Location = require('../models/location-model');
+const Upload = require('../models/upload-model');
 const { getAllLocationsFromGoogleMaps, gridSearch } = require('../utils/location-utils');
 
 const getLocations = async (req, res) => {
@@ -27,6 +28,18 @@ const getLocationById = async (req, res) => {
     } catch (err) {
         console.error('Error fetching location:', err);
         res.status(500).json({ error: 'Error fetching location' });
+    }
+};
+
+// Get images for a location
+const getLocationImages = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const images = await Upload.find({ location_id: id });
+        res.json(images);
+    } catch (err) {
+        console.error('Error fetching location images:', err);
+        res.status(500).json({ error: 'Error fetching location images' });
     }
 };
 
@@ -126,6 +139,7 @@ const updateLocation = async (req, res) => {
 module.exports = {
     getLocations,
     getLocationById,
+    getLocationImages,
     addAllLocations,
     addUserLocation,
     updateLocation
