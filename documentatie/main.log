@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.6.12)  23 JUN 2025 01:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.6.12)  25 JUN 2025 15:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -364,193 +364,210 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <17.28> on input line 41.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 41.
+<images/logoFii.png, id=243, 193.47281pt x 188.95593pt>
+File: images/logoFii.png Graphic file (type png)
+<use images/logoFii.png>
+Package pdftex.def Info: images/logoFii.png  used on input line 45.
+(pdftex.def)             Requested size: 136.57462pt x 133.38693pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 51.
+(Font)              <14.4> on input line 58.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 51.
+(Font)              <7> on input line 58.
  [1
 
-{C:/Users/Cosmin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 61.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 61.
-
+{C:/Users/Cosmin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/logoFii.png>]
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.72 \newpage
-              [1
+l.78 \chapter
+             *{Declaration of Originality} [1]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 81.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 81.
+ [2
 
-] [2
+] [3
 
-] (main.toc [3
+] (main.toc [4
 
 ])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [4] [5
+ [5] [6
 
 ]
-<images/expozitie.jpg, id=332, 4155.525pt x 5818.73875pt>
+<images/expozitie.jpg, id=347, 4155.525pt x 5818.73875pt>
 File: images/expozitie.jpg Graphic file (type jpg)
 <use images/expozitie.jpg>
-Package pdftex.def Info: images/expozitie.jpg  used on input line 114.
+Package pdftex.def Info: images/expozitie.jpg  used on input line 136.
 (pdftex.def)             Requested size: 182.09486pt x 254.90659pt.
-<images/mesaj.png, id=333, 448.074pt x 84.315pt>
+<images/mesaj.png, id=348, 448.074pt x 84.315pt>
 File: images/mesaj.png Graphic file (type png)
 <use images/mesaj.png>
-Package pdftex.def Info: images/mesaj.png  used on input line 120.
+Package pdftex.def Info: images/mesaj.png  used on input line 142.
 (pdftex.def)             Requested size: 364.19667pt x 68.53276pt.
- [6
+ [7
 
- <./images/expozitie.jpg>] [7 <./images/mesaj.png>] [8] [9] [10] [11
+ <./images/expozitie.jpg>] [8 <./images/mesaj.png>] [9] [10] [11] [12
 
 ]
 Chapter 1.
-[12
+[13
 
-] [13] [14]
+] [14] [15]
 Chapter 2.
-<images/abandonedworld.png, id=407, 831.105pt x 1798.72pt>
+<images/abandonedworld.png, id=419, 831.105pt x 1798.72pt>
 File: images/abandonedworld.png Graphic file (type png)
 <use images/abandonedworld.png>
-Package pdftex.def Info: images/abandonedworld.png  used on input line 310.
+Package pdftex.def Info: images/abandonedworld.png  used on input line 332.
 (pdftex.def)             Requested size: 136.57462pt x 295.56836pt.
-[15
+[16
 
  <./images/abandonedworld.png>]
-<images/urbexology.png, id=414, 1125.003pt x 585.387pt>
+<images/urbexology.png, id=426, 1125.003pt x 585.387pt>
 File: images/urbexology.png Graphic file (type png)
 <use images/urbexology.png>
-Package pdftex.def Info: images/urbexology.png  used on input line 322.
+Package pdftex.def Info: images/urbexology.png  used on input line 344.
 (pdftex.def)             Requested size: 364.19667pt x 189.4982pt.
- [16 <./images/urbexology.png>] [17]
+ [17 <./images/urbexology.png>] [18]
 Chapter 3.
-<images/user db.png, id=427, 439.04025pt x 90.3375pt>
+<images/user db.png, id=440, 439.04025pt x 90.3375pt>
 File: images/user db.png Graphic file (type png)
 <use images/user db.png>
-Package pdftex.def Info: images/user db.png  used on input line 359.
+Package pdftex.def Info: images/user db.png  used on input line 381.
 (pdftex.def)             Requested size: 455.24411pt x 93.67308pt.
-[18
+[19
 
  <./images/user db.png>]
-<images/discord.png, id=434, 590.205pt x 229.45724pt>
+<images/discord.png, id=446, 590.205pt x 229.45724pt>
 File: images/discord.png Graphic file (type png)
 <use images/discord.png>
-Package pdftex.def Info: images/discord.png  used on input line 388.
+Package pdftex.def Info: images/discord.png  used on input line 410.
 (pdftex.def)             Requested size: 227.62206pt x 88.4936pt.
- [19 <./images/discord.png>] [20]
-<images/licenta.drawio.png, id=449, 678.535pt x 434.62375pt>
+ [20 <./images/discord.png>] [21]
+<images/licenta.drawio.png, id=461, 678.535pt x 434.62375pt>
 File: images/licenta.drawio.png Graphic file (type png)
 <use images/licenta.drawio.png>
-Package pdftex.def Info: images/licenta.drawio.png  used on input line 423.
+Package pdftex.def Info: images/licenta.drawio.png  used on input line 445.
 (pdftex.def)             Requested size: 364.19667pt x 233.27411pt.
-<images/front.png, id=450, 151.767pt x 435.42674pt>
+<images/front.png, id=462, 151.767pt x 435.42674pt>
 File: images/front.png Graphic file (type png)
 <use images/front.png>
-Package pdftex.def Info: images/front.png  used on input line 430.
+Package pdftex.def Info: images/front.png  used on input line 452.
 (pdftex.def)             Requested size: 68.28383pt x 195.907pt.
- [21 <./images/licenta.drawio.png>]
-<images/ui.png, id=457, 1124.40076pt x 534.19576pt>
+ [22 <./images/licenta.drawio.png>]
+<images/ui.png, id=469, 1124.40076pt x 534.19576pt>
 File: images/ui.png Graphic file (type png)
 <use images/ui.png>
-Package pdftex.def Info: images/ui.png  used on input line 437.
+Package pdftex.def Info: images/ui.png  used on input line 459.
 (pdftex.def)             Requested size: 364.19667pt x 173.02467pt.
-<images/back.png, id=458, 155.98276pt x 436.63126pt>
+<images/back.png, id=470, 155.98276pt x 436.63126pt>
 File: images/back.png Graphic file (type png)
 <use images/back.png>
-Package pdftex.def Info: images/back.png  used on input line 445.
+Package pdftex.def Info: images/back.png  used on input line 467.
 (pdftex.def)             Requested size: 68.28383pt x 191.14563pt.
- [22 <./images/front.png> <./images/ui.png>]
-<images/database.png, id=465, 201.1515pt x 147.55125pt>
+ [23 <./images/front.png> <./images/ui.png>]
+<images/database.png, id=477, 201.1515pt x 147.55125pt>
 File: images/database.png Graphic file (type png)
 <use images/database.png>
-Package pdftex.def Info: images/database.png  used on input line 454.
+Package pdftex.def Info: images/database.png  used on input line 476.
 (pdftex.def)             Requested size: 273.14923pt x 200.38783pt.
- [23 <./images/back.png> <./images/database.png>]
+ [24 <./images/back.png> <./images/database.png>]
 Chapter 4.
-[24
+[25
 
 ]
-Overfull \hbox (0.34741pt too wide) in paragraph at lines 485--486
+Overfull \hbox (0.34741pt too wide) in paragraph at lines 507--508
 \T1/cmr/bx/n/12 Javascript \T1/cmr/m/n/12 works re-ally well to tie in to-gether the fron-tend and back-end parts: "Javascript
  []
 
 
-Overfull \hbox (2.14137pt too wide) in paragraph at lines 487--488
+Overfull \hbox (2.14137pt too wide) in paragraph at lines 509--510
 []\T1/cmr/m/n/12 On top of the ad-van-tages men-tioned above, \T1/cmr/bx/n/12 Node.Js\T1/cmr/m/n/12 , the main frame-work of Javascript
  []
 
-[25]
-<images/bcrypt.png, id=491, 405.31425pt x 23.48775pt>
+<images/token.png, id=495, 645.16031pt x 485.56406pt>
+File: images/token.png Graphic file (type png)
+<use images/token.png>
+Package pdftex.def Info: images/token.png  used on input line 514.
+(pdftex.def)             Requested size: 273.14923pt x 205.57292pt.
+[26]
+<images/bcrypt.png, id=504, 405.31425pt x 23.48775pt>
 File: images/bcrypt.png Graphic file (type png)
 <use images/bcrypt.png>
-Package pdftex.def Info: images/bcrypt.png  used on input line 500.
+Package pdftex.def Info: images/bcrypt.png  used on input line 524.
 (pdftex.def)             Requested size: 318.66948pt x 18.46657pt.
-<images/cors.png, id=492, 416.757pt x 111.41624pt>
+<images/cors.png, id=505, 416.757pt x 111.41624pt>
 File: images/cors.png Graphic file (type png)
 <use images/cors.png>
-Package pdftex.def Info: images/cors.png  used on input line 506.
+Package pdftex.def Info: images/cors.png  used on input line 530.
 (pdftex.def)             Requested size: 273.14923pt x 73.02492pt.
-
-Overfull \hbox (4.27986pt too wide) in paragraph at lines 515--516
+ [27 <./images/token.png> <./images/bcrypt.png> <./images/cors.png>]
+Overfull \hbox (4.27986pt too wide) in paragraph at lines 539--540
 []\T1/cmr/m/n/12 The lo-ca-tions that are not user sub-mit-ted are ex-tracted from the Google Maps database,
  []
 
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 517.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 541.
 (D:\latex\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [26 <./images/bcrypt.png> <./images/cors.png>]
-<images/google.png, id=500, 910.602pt x 100.57574pt>
+)
+<images/google.png, id=514, 910.602pt x 100.57574pt>
 File: images/google.png Graphic file (type png)
 <use images/google.png>
-Package pdftex.def Info: images/google.png  used on input line 524.
+Package pdftex.def Info: images/google.png  used on input line 548.
 (pdftex.def)             Requested size: 364.19667pt x 40.22498pt.
-<images/grid.png, id=501, 891.33pt x 410.13225pt>
+<images/grid.png, id=515, 891.33pt x 410.13225pt>
 File: images/grid.png Graphic file (type png)
 <use images/grid.png>
-Package pdftex.def Info: images/grid.png  used on input line 530.
+Package pdftex.def Info: images/grid.png  used on input line 554.
 (pdftex.def)             Requested size: 273.14923pt x 125.68153pt.
-<images/json.png, id=502, 588.39825pt x 491.436pt>
+<images/json.png, id=516, 588.39825pt x 491.436pt>
 File: images/json.png Graphic file (type png)
 <use images/json.png>
-Package pdftex.def Info: images/json.png  used on input line 536.
+Package pdftex.def Info: images/json.png  used on input line 560.
 (pdftex.def)             Requested size: 318.66948pt x 266.15884pt.
- [27 <./images/google.png> <./images/grid.png> <./images/json.png>] [28]
-<images/api.png, id=524, 446.26724pt x 132.495pt>
+ [28 <./images/google.png> <./images/grid.png>] [29 <./images/json.png>]
+<images/api.png, id=533, 446.26724pt x 132.495pt>
 File: images/api.png Graphic file (type png)
 <use images/api.png>
-Package pdftex.def Info: images/api.png  used on input line 579.
+Package pdftex.def Info: images/api.png  used on input line 603.
 (pdftex.def)             Requested size: 364.19667pt x 108.13104pt.
-<images/signature.png, id=525, 474.573pt x 53.60025pt>
+ [30 <./images/api.png>]
+<images/signature.png, id=551, 474.573pt x 53.60025pt>
 File: images/signature.png Graphic file (type png)
 <use images/signature.png>
-Package pdftex.def Info: images/signature.png  used on input line 591.
+Package pdftex.def Info: images/signature.png  used on input line 615.
 (pdftex.def)             Requested size: 364.19667pt x 41.13408pt.
- [29 <./images/api.png> <./images/signature.png>] [30]
+ [31 <./images/signature.png>]
 Chapter 5.
-[31
-
-]
-Chapter 6.
-<images/raspberrypi.png, id=555, 642.60075pt x 331.2375pt>
-File: images/raspberrypi.png Graphic file (type png)
-<use images/raspberrypi.png>
-Package pdftex.def Info: images/raspberrypi.png  used on input line 642.
-(pdftex.def)             Requested size: 364.19667pt x 187.73076pt.
 [32
 
+]
+<images/lighthouse.png, id=569, 778.40813pt x 398.23781pt>
+File: images/lighthouse.png Graphic file (type png)
+<use images/lighthouse.png>
+Package pdftex.def Info: images/lighthouse.png  used on input line 655.
+(pdftex.def)             Requested size: 318.66948pt x 163.03549pt.
+ [33 <./images/lighthouse.png>]
+Chapter 6.
+<images/raspberrypi.png, id=577, 642.60075pt x 331.2375pt>
+File: images/raspberrypi.png Graphic file (type png)
+<use images/raspberrypi.png>
+Package pdftex.def Info: images/raspberrypi.png  used on input line 676.
+(pdftex.def)             Requested size: 364.19667pt x 187.73076pt.
+[34
+
  <./images/raspberrypi.png>]
-<images/dns.png, id=564, 928.6695pt x 405.9165pt>
+<images/dns.png, id=586, 928.6695pt x 405.9165pt>
 File: images/dns.png Graphic file (type png)
 <use images/dns.png>
-Package pdftex.def Info: images/dns.png  used on input line 666.
+Package pdftex.def Info: images/dns.png  used on input line 700.
 (pdftex.def)             Requested size: 364.19667pt x 159.18631pt.
- [33 <./images/dns.png>] [34] [35
+ [35 <./images/dns.png>] [36] [37
 
-] (main.bbl [36]
+] (main.bbl [38]
 Overfull \hbox (230.96638pt too wide) in paragraph at lines 33--38
 \T1/cmr/m/n/12 56926-[]galati-[]viata-[]libera-[]cotidian-[]urbex-[]adrenalina-[]si-[]ruine-[]„turism”-[]la-[]limita-[]cu-[]aparatul-[]foto-[]galati-[]viata-[]libera-[]cotidian$[][] 
  []
@@ -565,33 +582,33 @@ Overfull \hbox (174.50542pt too wide) in paragraph at lines 49--55
 \T1/cmr/m/n/12 urbex-[]noul-[]trend-[]periculos-[]de-[]pe-[]tiktok-[]reactia-[]unei-[]mame-[]care-[]isi-[]vede-[]copilul-[]riscandusi-[]viata-[]pe-[]o-[]cladire-[]553909 .
  []
 
-[37
+[39
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 97--102
 \T1/cmr/m/n/12 380197155 _ Exploring _ The _ Model-[]View-[]Controller _ MVC _ Architecture _ A _
  []
 
-[38]) [39] (main.aux)
+[40]) [41] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FFDA259D0450DE3DE6160A0EFABA3CD2;10160.
+(rerunfilecheck)             Checksum: C9B057F4AB75565E06DA70306DEF6B36;10313.
  ) 
 Here is how much of TeX's memory you used:
- 14177 strings out of 474486
- 221855 string characters out of 5760636
- 1960542 words of memory out of 5000000
- 36135 multiletter control sequences out of 15000+600000
- 573533 words of font info for 67 fonts, out of 8000000 for 9000
+ 14204 strings out of 474486
+ 222458 string characters out of 5760636
+ 1966542 words of memory out of 5000000
+ 36158 multiletter control sequences out of 15000+600000
+ 573545 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,79p,920b,1954s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0700.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk>
-Output written on main.pdf (40 pages, 9292838 bytes).
+ 75i,6n,79p,920b,1068s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0600.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0700.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0700.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Cosmin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk>
+Output written on main.pdf (42 pages, 9460939 bytes).
 PDF statistics:
- 1144 PDF objects out of 1200 (max. 8388607)
- 164 named destinations out of 1000 (max. 500000)
- 573 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1181 PDF objects out of 1200 (max. 8388607)
+ 168 named destinations out of 1000 (max. 500000)
+ 596 words of extra memory for PDF output out of 10000 (max. 10000000)
 

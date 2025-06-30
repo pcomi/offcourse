@@ -1,6 +1,10 @@
+// controllers/location-request-controller.js (UPDATED with EXP system)
 const LocationRequest = require('../models/location-request-model');
 const Upload = require('../models/upload-model');
 const Location = require('../models/location-model');
+const User = require('../models/user-model');
+const Exploration = require('../models/exploration-model');
+const { awardExperience, EXP_VALUES } = require('../controllers/exploration-controller');
 
 // Submit a new location request with images
 const submitLocationRequest = async (req, res) => {
@@ -60,7 +64,7 @@ const submitLocationRequest = async (req, res) => {
         }
 
         res.status(201).json({ 
-            message: `Location request submitted successfully with ${uploadedFiles.length} images! It will be reviewed by an admin.`,
+            message: `Location request submitted successfully with ${uploadedFiles.length} images! It will be reviewed by an admin. You'll receive ${EXP_VALUES.LOCATION_REQUEST} XP if approved.`,
             request: savedRequest,
             uploads: uploadedFiles
         });
@@ -70,7 +74,7 @@ const submitLocationRequest = async (req, res) => {
     }
 };
 
-// Approve a location request
+// Approve a location request (UPDATED WITH EXP AWARD)
 const approveLocationRequest = async (req, res) => {
     try {
         const { requestId } = req.params;
@@ -108,11 +112,57 @@ const approveLocationRequest = async (req, res) => {
         // Update request status
         request.status = 'approved';
         await request.save();
-        
-        res.json({ 
-            message: 'Location request approved and added to the map!',
-            location: savedLocation
-        });
+
+        // AWARD EXPERIENCE TO THE USER WHO SUBMITTED THE REQUEST
+        try {
+            const submittingUser = await User.findOne({ username: request.submitted_by });
+            if (submittingUser) {
+                // Create exploration record for the location request (AUTO-APPROVED)
+                const exploration = new Exploration({
+                    user_id: submittingUser._id,
+                    username: submittingUser.username,
+                    location_id: savedLocation._id,
+                    location_name: savedLocation.name,
+                    exploration_type: 'location_request',
+                    exp_gained: EXP_VALUES.LOCATION_REQUEST,
+                    photos: [], // Photos are linked via uploads
+                    status: 'approved', // Auto-approved for location requests
+                    admin_notes: 'Automatically approved for successful location request',
+                    reviewed_at: new Date(),
+                    reviewed_by: 'system'
+                });
+
+                await exploration.save();
+
+                // Award experience
+                const expResult = await awardExperience(
+                    submittingUser._id, 
+                    EXP_VALUES.LOCATION_REQUEST, 
+                    'location_request'
+                );
+
+                console.log(`Awarded ${EXP_VALUES.LOCATION_REQUEST} XP to ${submittingUser.username} for location request approval`);
+                console.log('Level up result:', expResult);
+
+                res.json({ 
+                    message: `Location request approved and added to the map! ${submittingUser.username} has been awarded ${EXP_VALUES.LOCATION_REQUEST} XP.`,
+                    location: savedLocation,
+                    expResult: expResult
+                });
+            } else {
+                res.json({ 
+                    message: 'Location request approved and added to the map!',
+                    location: savedLocation
+                });
+            }
+        } catch (expError) {
+            console.error('Error awarding experience for approved location:', expError);
+            // Don't fail the whole operation if XP award fails
+            res.json({ 
+                message: 'Location request approved and added to the map! (XP award failed)',
+                location: savedLocation
+            });
+        }
         
     } catch (error) {
         console.error('Error approving request:', error);

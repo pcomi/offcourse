@@ -119,10 +119,105 @@
         </div>
     </div>
 
+    <!-- Location Exploration Modal -->
+    <div id="explorationModal" class="modal">
+        <div class="modal-content exploration-modal">
+            <div class="modal-header">
+                <h2>🏚️ Explore Location</h2>
+                <span class="close" id="explorationClose">&times;</span>
+            </div>
+            
+            <div id="explorationContent" class="modal-body">
+                <div class="exploration-header">
+                    <h3 id="explorationLocationName">Location Name</h3>
+                    <div class="exp-badge">
+                        <span class="exp-icon">⭐</span>
+                        <span class="exp-text">Earn 50 XP</span>
+                    </div>
+                </div>
+                
+                <div class="exploration-info">
+                    <p>📸 Share your exploration experience with photos, description, and rating!</p>
+                    <p class="note">Note: You can only explore each location once. Photos require admin approval.</p>
+                </div>
+
+                <form id="explorationForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="explorationPhotos">📷 Photos (Required) *</label>
+                        <input type="file" id="explorationPhotos" name="photos" multiple required accept="image/*" class="file-input">
+                        <div class="file-info">
+                            <small>Upload 1-5 photos of your visit. Max 5MB each. JPG, PNG, GIF allowed.</small>
+                            <div id="explorationPreview" class="file-preview"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="explorationDescription">📝 Description</label>
+                        <textarea 
+                            id="explorationDescription" 
+                            name="description" 
+                            rows="4" 
+                            placeholder="Tell us about your exploration... What did you find? How was the experience?"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="explorationRating">⭐ Rating</label>
+                        <div class="rating-container">
+                            <select id="explorationRating" name="rating" class="rating-select">
+                                <option value="">Choose a rating (optional)</option>
+                                <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                                <option value="4">⭐⭐⭐⭐ Good</option>
+                                <option value="3">⭐⭐⭐ Average</option>
+                                <option value="2">⭐⭐ Poor</option>
+                                <option value="1">⭐ Very Poor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelExploration" class="secondary-btn">Cancel</button>
+                        <button type="submit" class="submit-btn exploration-submit">Submit Exploration</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="explorationAlreadyDone" class="modal-body" style="display: none;">
+                <div class="status-message already-explored">
+                    <div class="status-icon">✅</div>
+                    <h3>Already Explored!</h3>
+                    <p>You have already explored this location and gained XP for it.</p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="closeExplorationDone" class="secondary-btn">Close</button>
+                </div>
+            </div>
+            
+            <div id="explorationPending" class="modal-body" style="display: none;">
+                <div class="status-message pending-approval">
+                    <div class="status-icon">⏳</div>
+                    <h3>Pending Approval</h3>
+                    <p>Your exploration of this location is pending admin approval. You'll receive XP once it's reviewed.</p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="closeExplorationPending" class="secondary-btn">Close</button>
+                </div>
+            </div>
+            
+            <div id="explorationLoading" class="modal-body" style="display: none;">
+                <div class="loading-message">
+                    <div class="loading-spinner"></div>
+                    <h3>Checking exploration status...</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="map"></div>
 
     <script src="/scripts/getLocations.js"></script>
     <script type="module" src="/scripts/map.js"></script>
     <script src="/scripts/locationRequest.js"></script>
+    <script src="/scripts/locationExploration.js"></script>
 </body>
 </html>

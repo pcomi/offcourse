@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const locationRoutes = require('./routes/location-routes');
 const userRoutes = require('./routes/user-routes');
 const locationRequestRoutes = require('./routes/location-request-routes');
+const explorationRoutes = require('./routes/exploration-routes'); // NEW
 require('dotenv').config();
 
 const app = express();
@@ -30,10 +31,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api', locationRoutes);
-
 app.use('/api/users', userRoutes);
-
 app.use('/api', locationRequestRoutes);
+app.use('/api', explorationRoutes); // NEW
 
 app.use('/utils', express.static(path.join(__dirname, 'utils')));
 

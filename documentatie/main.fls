@@ -163,6 +163,13 @@ INPUT D:\latex\fonts\tfm\public\cm\cmmi12.tfm
 INPUT D:\latex\fonts\tfm\public\cm\cmsy10.tfm
 INPUT D:\latex\fonts\tfm\public\cm\cmsy10.tfm
 INPUT D:\latex\fonts\tfm\jknappen\ec\ecbx1000.tfm
+INPUT .\images\logoFii.png
+INPUT .\images\logoFii.png
+INPUT .\images\logoFii.png
+INPUT .\images\logoFii.png
+INPUT .\images\logoFii.png
+INPUT .\images\logoFii.png
+INPUT .\images\logoFii.png
 INPUT D:\latex\fonts\tfm\jknappen\ec\ecrm2488.tfm
 INPUT D:\latex\fonts\tfm\jknappen\ec\ecbx2488.tfm
 INPUT D:\latex\fonts\tfm\jknappen\ec\ecrm1440.tfm
@@ -171,6 +178,8 @@ INPUT D:\latex\fonts\tfm\public\cm\cmmi12.tfm
 INPUT D:\latex\fonts\tfm\public\cm\cmsy10.tfm
 INPUT D:\latex\fonts\tfm\jknappen\ec\ecrm0700.tfm
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT D:\latex\fonts\tfm\jknappen\ec\ecbx1440.tfm
+INPUT D:\latex\fonts\tfm\jknappen\ec\ecbx0700.tfm
 INPUT D:\latex\fonts\tfm\public\cm\cmr8.tfm
 INPUT D:\latex\fonts\tfm\public\cm\cmr6.tfm
 INPUT D:\latex\fonts\tfm\public\cm\cmmi8.tfm
@@ -198,7 +207,6 @@ INPUT .\images\mesaj.png
 INPUT .\images\mesaj.png
 INPUT .\images\mesaj.png
 INPUT D:\latex\fonts\tfm\jknappen\ec\tcrm1200.tfm
-INPUT D:\latex\fonts\tfm\jknappen\ec\ecbx1440.tfm
 INPUT .\images\abandonedworld.png
 INPUT .\images\abandonedworld.png
 INPUT .\images\abandonedworld.png
@@ -262,6 +270,13 @@ INPUT .\images\database.png
 INPUT .\images\database.png
 INPUT .\images\database.png
 INPUT .\images\database.png
+INPUT .\images\token.png
+INPUT .\images\token.png
+INPUT .\images\token.png
+INPUT .\images\token.png
+INPUT .\images\token.png
+INPUT .\images\token.png
+INPUT .\images\token.png
 INPUT .\images\bcrypt.png
 INPUT .\images\bcrypt.png
 INPUT .\images\bcrypt.png
@@ -281,7 +296,6 @@ INPUT D:\latex\tex\latex\base\t1cmtt.fd
 INPUT D:\latex\tex\latex\base\t1cmtt.fd
 INPUT D:\latex\fonts\tfm\jknappen\ec\ectt1200.tfm
 INPUT D:\latex\fonts\tfm\jknappen\ec\ectt1095.tfm
-INPUT D:\latex\fonts\tfm\jknappen\ec\ecrm1095.tfm
 INPUT .\images\google.png
 INPUT .\images\google.png
 INPUT .\images\google.png
@@ -317,6 +331,13 @@ INPUT .\images\signature.png
 INPUT .\images\signature.png
 INPUT .\images\signature.png
 INPUT .\images\signature.png
+INPUT .\images\lighthouse.png
+INPUT .\images\lighthouse.png
+INPUT .\images\lighthouse.png
+INPUT .\images\lighthouse.png
+INPUT .\images\lighthouse.png
+INPUT .\images\lighthouse.png
+INPUT .\images\lighthouse.png
 INPUT .\images\raspberrypi.png
 INPUT .\images\raspberrypi.png
 INPUT .\images\raspberrypi.png
@@ -342,8 +363,6 @@ INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ec
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1200.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk
-INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
-INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1200.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1200.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk
@@ -352,6 +371,10 @@ INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ec
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0600.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk
+INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0700.pk
+INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0700.pk
+INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
+INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0700.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0700.pk
 INPUT C:\Users\Cosmin\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1440.pk

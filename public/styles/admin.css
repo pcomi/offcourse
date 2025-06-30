@@ -535,3 +535,46 @@ body {
         flex-direction: column;
     }
 }
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.filter-section h2 {
+    margin: 0;
+    color: #fff;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.view-toggle-btn {
+    background-color: transparent;
+    color: #ccc;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.view-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.view-toggle-btn.active {
+    background-color: #2c1f6a;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

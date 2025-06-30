@@ -38,22 +38,42 @@
 
 \begin{titlepage}
     \centering
-    {\Large \textbf{ALEXANDRU IOAN CUZA UNIVERSITY OF IAȘI}}\\[0.5cm]
+    {\Large \textbf{"ALEXANDRU IOAN CUZA" UNIVERSITY OF IAȘI}}\\[0.5cm]
     {\Large \textbf{FACULTY OF COMPUTER SCIENCE}}\\[2cm]
     
+    \begin{center}
+    \includegraphics[width=0.3\textwidth]{images/logoFii.png}
+    \end{center}
+
+    {\Huge \textbf{Bachelor's Thesis}}\\[1cm]
     {\Huge \textbf{Off Course - Web Platform for Exploring Abandoned Buildings in Romania}}\\[3cm]
-    
+
+    {\Large proposed by}\\[1cm]
+
     {\Large Popa Cosmin-George}\\[2cm]
     
-    {\large Session: July, 2025}\\[2cm]
+    {\large Session: July, 2025}\\[1cm]
     
-    {\large Scientific Supervisor}\\
-    {\large Prof. Dr. Pătruț Bogdan}\\[2cm]
+    {\large Scientific Coordinator}\\
+    {\large Lect. Univ. Dr. Pătruț Bogdan}\\[2cm]
     
     \vfill
-    {\large Iași}\\
-    {\large 2025}
 \end{titlepage}
+
+\newpage
+\begin{center}
+{\Large \textbf{"ALEXANDRU IOAN CUZA" UNIVERSITY OF IAȘI}}\\[0.5cm]
+{\Large \textbf{FACULTY OF COMPUTER SCIENCE}}\\[3cm]
+
+{\Large \textbf{Off Course - Web Platform for Exploring Abandoned Buildings in Romania}}\\[3cm]
+
+{\Large \textbf{Popa Cosmin-George}}\\[2cm]
+
+{\large Session: July, 2025}\\[2cm]
+
+{\large Scientific Supervisor}\\
+{\large \textbf{Prof. Dr. Pătruț Bogdan}}\\[2cm]
+\end{center}
 
 \chapter*{Declaration of Originality}
 \addcontentsline{toc}{chapter}{Declaration of Originality}
@@ -65,6 +85,8 @@ I, Popa Cosmin-George, domiciled in [address], born on [date], identified by CNP
 developed under the guidance of Prof. Dr. Pătruț Bogdan, which I will present before the commission is original, belongs to me and I assume full responsibility for its content.
 
 I also declare that I agree that my bachelor's thesis may be verified by any legal means to confirm its originality, including consenting to the introduction of its content into a database for this purpose.
+
+I have been informed that the commercialization of scientific papers in order to facilitate falsification by the buyer of the quality of author of a bachelor's thesis, diploma or dissertation is prohibited, and in this regard, I declare on my own responsibility that the present work has not been copied but represents the result of the research I have undertaken.
 
 \vspace{2cm}
 Date: [date] \hfill Student signature
@@ -488,9 +510,11 @@ On top of the advantages mentioned above, \textbf{Node.Js}, the main framework o
 
 So, \textbf{jsonwebtoken} is responsible for storing sessions on the server side, but rather in the browser client via cookies. It is secure because the cookie is always signed, so an attacker would not be able to change information about his session (like changing his level to a higher one or becoming an administrator) because he would need to know the secret signature which is hidden to all users.
 
-*TO PUT SCREENSHOT FROM JWT WITH WORKING COOKIE
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/token.png}
+\end{center}
 
-jwt.io is a website where developers can test if their cookies are working as expected in terms of data from the heads and especially the payload without extracting them in the code, which is very convinient. The signature password is obviously not available for safety reasons.
+jwt.io is a website where developers can test if their cookies are working as expected in terms of data from the heads and especially the payload without extracting them in the code, which is very convinient. The signature password is obviously not available for safety reasons, but all of the relevant fields I thought necessary can be seen here, like the mongodb id, the username, the user's level and experience points and also when the token was created and when it expires.
 
 The library used for data encryption is \textbf{bcrypt}. The 'b' in its name comes from the Blowfish cypher which is a block cipher notable for "its expensive key setup phase"~\cite{blowfishCipher}
 
@@ -622,6 +646,16 @@ These are the points that have been tested:
     \item gamification features like gaining experience and leveling up
     \item mobile experience
 \end{enumerate}
+
+\section{Performance Results}
+
+In order to quickly and easily see how well the website performs without any intricate tests is a Chrome extension that automatically analyses the efficiency and lets you know how well it performs and where to improve:"You can run Lighthouse as part of PageSpeed Insights, in Chrome DevTools, from the command line, or as a Node module. You give Lighthouse a URL to audit, it runs a series of audits against the page, and then it generates a report on how well the page did."~\cite{lighthouseChrome}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/lighthouse.png}
+\end{center}
+
+As seen from the screenshot above, the website has a high 94 percent performance with very few aspects to improve on in terms of efficiency. It performs well for both desktop and mobile with very fast load times that are definitely industry standard. So the technologies chosen seem to have been correct, as the site works well, though some changes can be made for an even better flow in terms of loading pictures with multer and more efficient caching.
 
 \section{User Feedback}
 
