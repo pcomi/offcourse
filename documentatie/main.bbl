@@ -153,6 +153,16 @@ Codecademy. (2024) What is javascript? Accessed 13 June 2025. [Online].
   [Online]. Available: \url{https://www.npmjs.com/package/multer}
 \BIBentrySTDinterwordspacing
 
+\bibitem{lighthouseChrome}
+\BIBentryALTinterwordspacing
+{Google Chrome Developers}. (2025) Lighthouse - chrome developers. You can run
+  Lighthouse as part of PageSpeed Insights, in Chrome DevTools, from the
+  command line, or as a Node module. You give Lighthouse a URL to audit, it
+  runs a series of audits against the page, and then it generates a report on
+  how well the page did. [Online]. Available:
+  \url{https://developer.chrome.com/docs/lighthouse}
+\BIBentrySTDinterwordspacing
+
 \bibitem{raspberryPi}
 \BIBentryALTinterwordspacing
 {Raspberry Pi Foundation}. (2025) Raspberry pi high-performance computing for

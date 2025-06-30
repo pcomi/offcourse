@@ -1,28 +1,28 @@
+// config/multer-config.js
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Create uploads directory if it doesn't exist
-const uploadDir = './public/uploads';
+// Ensure uploads directory exists
+const uploadDir = path.join(__dirname, '..', 'public', 'uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Configure storage
+// Configure multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
-        // Create unique filename: timestamp_originalname
-        const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E9);
+        // Generate unique filename
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const ext = path.extname(file.originalname);
-        const name = path.basename(file.originalname, ext);
-        cb(null, uniqueSuffix + '_' + name + ext);
+        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
     }
 });
 
-// File filter - only allow images
+// File filter to only allow images
 const fileFilter = (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
         cb(null, true);

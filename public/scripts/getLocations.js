@@ -1,3 +1,5 @@
+// public/scripts/getLocations.js (UPDATED with Explore button)
+
 const locationIcon = L.icon({
     iconUrl: '../icons/marker.png',
     iconSize: [32, 32],
@@ -40,19 +42,31 @@ const addLocationsToMap = async (map) => {
                 const locationName = location.name;
 
                 const popupContent = `
-                    <div style="text-align: center;">
-                        <strong>${locationName}</strong><br>
-                        <small>Score: ${location.score || 1}</small><br>
-                        <button id="explore-${location._id}" style="
-                            background-color: #3498db;
-                            color: white;
-                            border: none;
-                            padding: 8px 15px;
-                            border-radius: 4px;
-                            cursor: pointer;
-                            margin-top: 5px;
-                            font-size: 14px;
-                        ">View Details</button>
+                    <div style="text-align: center; min-width: 200px;">
+                        <strong style="display: block; margin-bottom: 8px; font-size: 16px;">${locationName}</strong>
+                        <small style="display: block; margin-bottom: 10px; color: #666;">Score: ${location.score || 1}</small>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <button id="details-${location._id}" style="
+                                background-color: #3498db;
+                                color: white;
+                                border: none;
+                                padding: 8px 12px;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-size: 13px;
+                                transition: background-color 0.3s;
+                            ">View Details</button>
+                            <button id="explore-${location._id}" style="
+                                background-color: #27ae60;
+                                color: white;
+                                border: none;
+                                padding: 8px 12px;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-size: 13px;
+                                transition: background-color 0.3s;
+                            ">Explore (+50 XP)</button>
+                        </div>
                     </div>
                 `;
 
@@ -60,10 +74,45 @@ const addLocationsToMap = async (map) => {
                 marker.bindPopup(popupContent);
 
                 marker.on('popupopen', () => {
-                    document.getElementById(`explore-${location._id}`).addEventListener('click', () => {
-                        console.log('Navigating to location:', location._id); // Debug log
-                        window.location.href = `/details?id=${location._id}`;
-                    });
+                    // View Details button
+                    const detailsBtn = document.getElementById(`details-${location._id}`);
+                    if (detailsBtn) {
+                        detailsBtn.addEventListener('click', () => {
+                            console.log('Navigating to location details:', location._id);
+                            window.location.href = `/details?id=${location._id}`;
+                        });
+                        
+                        // Add hover effect
+                        detailsBtn.addEventListener('mouseenter', () => {
+                            detailsBtn.style.backgroundColor = '#2980b9';
+                        });
+                        detailsBtn.addEventListener('mouseleave', () => {
+                            detailsBtn.style.backgroundColor = '#3498db';
+                        });
+                    }
+
+                    // Explore button
+                    const exploreBtn = document.getElementById(`explore-${location._id}`);
+                    if (exploreBtn) {
+                        exploreBtn.addEventListener('click', () => {
+                            console.log('Opening exploration modal for:', location._id, locationName);
+                            // Check if openExplorationModal function exists (from locationExploration.js)
+                            if (typeof openExplorationModal === 'function') {
+                                openExplorationModal(location._id, locationName);
+                            } else {
+                                console.error('openExplorationModal function not found');
+                                alert('Exploration feature not available. Please refresh the page.');
+                            }
+                        });
+                        
+                        // Add hover effect
+                        exploreBtn.addEventListener('mouseenter', () => {
+                            exploreBtn.style.backgroundColor = '#229954';
+                        });
+                        exploreBtn.addEventListener('mouseleave', () => {
+                            exploreBtn.style.backgroundColor = '#27ae60';
+                        });
+                    }
                 });
             } 
             else 

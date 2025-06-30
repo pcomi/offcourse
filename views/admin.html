@@ -41,7 +41,7 @@
             <div class="stats-row">
                 <div class="stat-card">
                     <h3 id="pendingCount">0</h3>
-                    <p>Pending Requests</p>
+                    <p>Pending Items</p>
                 </div>
                 <div class="stat-card">
                     <h3 id="approvedCount">0</h3>
@@ -55,7 +55,13 @@
         </div>
 
         <div class="filter-section">
-            <h2>Location Requests</h2>
+            <div class="section-header">
+                <h2>Location Requests</h2>
+                <div class="view-toggle">
+                    <button class="view-toggle-btn active" data-view="requests">📍 Requests</button>
+                    <button class="view-toggle-btn" data-view="explorations">🏚️ Explorations</button>
+                </div>
+            </div>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="pending">Pending</button>
                 <button class="filter-btn" data-filter="approved">Approved</button>
@@ -65,19 +71,19 @@
         </div>
 
         <div class="requests-container">
-            <div id="loadingSpinner" class="loading">Loading requests...</div>
+            <div id="loadingSpinner" class="loading">Loading...</div>
             <div id="requestsList" class="requests-list"></div>
             <div id="noRequests" class="no-requests" style="display: none;">
-                No requests found.
+                No items found.
             </div>
         </div>
     </div>
 
-    <!-- Request Detail Modal -->
+    <!-- Request/Exploration Detail Modal -->
     <div id="requestModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Request Details</h2>
+                <h2>Item Details</h2>
                 <span class="close">&times;</span>
             </div>
             <div class="modal-body">

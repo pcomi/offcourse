@@ -1,7 +1,12 @@
+// public/scripts/admin.js (UPDATED with explorations)
+
 // Global variables
 let allRequests = [];
+let allExplorations = [];
 let currentFilter = 'pending';
+let currentView = 'requests'; // 'requests' or 'explorations'
 let selectedRequest = null;
+let selectedExploration = null;
 
 function logout() {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
@@ -21,6 +26,7 @@ function formatDate(dateString) {
 
 // DOM elements
 const filterBtns = document.querySelectorAll('.filter-btn');
+const viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
 const requestsList = document.getElementById('requestsList');
 const loadingSpinner = document.getElementById('loadingSpinner');
 const noRequests = document.getElementById('noRequests');
@@ -40,19 +46,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listeners
     document.getElementById('logoutButton').addEventListener('click', logout);
     
+    // Filter buttons
     filterBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentFilter = e.target.dataset.filter;
             updateFilterButtons();
-            filterRequests();
+            if (currentView === 'requests') {
+                filterRequests();
+            } else {
+                filterExplorations();
+            }
+        });
+    });
+
+    // View toggle buttons
+    viewToggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            currentView = e.target.dataset.view;
+            updateViewButtons();
+            if (currentView === 'requests') {
+                loadRequests();
+            } else {
+                loadExplorations();
+            }
         });
     });
     
     // Modal event listeners
     closeBtn.addEventListener('click', closeModal);
     closeModalBtn.addEventListener('click', closeModal);
-    approveBtn.addEventListener('click', () => handleRequestAction('approved'));
-    rejectBtn.addEventListener('click', () => handleRequestAction('rejected'));
+    approveBtn.addEventListener('click', () => handleAction('approved'));
+    rejectBtn.addEventListener('click', () => handleAction('rejected'));
     
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
@@ -64,60 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadRequests();
     loadStats();
 });
-
-// Load all requests
-async function loadRequests() {
-    try {
-        loadingSpinner.style.display = 'block';
-        requestsList.style.display = 'none';
-        noRequests.style.display = 'none';
-        
-        const response = await fetch('/api/requests');
-        if (!response.ok) {
-            throw new Error('Failed to load requests');
-        }
-        
-        allRequests = await response.json();
-        console.log('Loaded requests:', allRequests);
-        
-        loadingSpinner.style.display = 'none';
-        filterRequests();
-        
-    } catch (error) {
-        console.error('Error loading requests:', error);
-        loadingSpinner.style.display = 'none';
-        alert('Error loading requests');
-    }
-}
-
-// Load statistics
-async function loadStats() {
-    try {
-        const pendingResponse = await fetch('/api/requests/status/pending');
-        const approvedResponse = await fetch('/api/requests/status/approved');
-        const rejectedResponse = await fetch('/api/requests/status/rejected');
-        
-        const pending = await pendingResponse.json();
-        const approved = await approvedResponse.json();
-        const rejected = await rejectedResponse.json();
-        
-        // Filter approved and rejected for today
-        const today = new Date().toDateString();
-        const approvedToday = approved.filter(req => 
-            new Date(req.created_at).toDateString() === today
-        );
-        const rejectedToday = rejected.filter(req => 
-            new Date(req.created_at).toDateString() === today
-        );
-        
-        document.getElementById('pendingCount').textContent = pending.length;
-        document.getElementById('approvedCount').textContent = approvedToday.length;
-        document.getElementById('rejectedCount').textContent = rejectedToday.length;
-        
-    } catch (error) {
-        console.error('Error loading stats:', error);
-    }
-}
 
 // Update filter buttons
 function updateFilterButtons() {
@@ -140,6 +110,7 @@ function filterRequests() {
     if (filteredRequests.length === 0) {
         requestsList.style.display = 'none';
         noRequests.style.display = 'block';
+        noRequests.textContent = 'No requests found.';
         return;
     }
     
@@ -153,6 +124,31 @@ function filterRequests() {
     });
 }
 
+// Filter and display explorations
+function filterExplorations() {
+    let filteredExplorations = allExplorations;
+    
+    if (currentFilter !== 'all') {
+        filteredExplorations = allExplorations.filter(exp => exp.status === currentFilter);
+    }
+    
+    if (filteredExplorations.length === 0) {
+        requestsList.style.display = 'none';
+        noRequests.style.display = 'block';
+        noRequests.textContent = 'No explorations found.';
+        return;
+    }
+    
+    noRequests.style.display = 'none';
+    requestsList.style.display = 'block';
+    requestsList.innerHTML = '';
+    
+    filteredExplorations.forEach(exploration => {
+        const explorationCard = createExplorationCard(exploration);
+        requestsList.appendChild(explorationCard);
+    });
+}
+
 // Create request card element
 function createRequestCard(request) {
     const card = document.createElement('div');
@@ -161,7 +157,7 @@ function createRequestCard(request) {
     
     card.innerHTML = `
         <div class="request-header">
-            <h3 class="request-title">${request.name}</h3>
+            <h3 class="request-title">📍 ${request.name}</h3>
             <span class="request-status ${request.status}">${request.status.toUpperCase()}</span>
         </div>
         
@@ -176,7 +172,7 @@ function createRequestCard(request) {
                 <strong>Submitted by:</strong> ${request.submitted_by}
             </div>
             <div class="info-item">
-                <strong>Origin:</strong> ${request.origin}
+                <strong>Type:</strong> Location Request (+100 XP)
             </div>
         </div>
         
@@ -186,8 +182,8 @@ function createRequestCard(request) {
             <span>Submitted: ${formatDate(request.created_at)}</span>
             ${request.status === 'pending' ? `
                 <div class="quick-actions">
-                    <button class="quick-approve" onclick="event.stopPropagation(); quickAction('${request._id}', 'approved')">Approve</button>
-                    <button class="quick-reject" onclick="event.stopPropagation(); quickAction('${request._id}', 'rejected')">Reject</button>
+                    <button class="quick-approve" onclick="event.stopPropagation(); quickAction('${request._id}', 'approved', 'request')">Approve</button>
+                    <button class="quick-reject" onclick="event.stopPropagation(); quickAction('${request._id}', 'rejected', 'request')">Reject</button>
                 </div>
             ` : ''}
         </div>
@@ -196,16 +192,68 @@ function createRequestCard(request) {
     return card;
 }
 
-// Quick action from request card
-async function quickAction(requestId, action) {
-    if (confirm(`Are you sure you want to ${action} this request?`)) {
-        await updateRequestStatus(requestId, action);
+// Create exploration card element
+function createExplorationCard(exploration) {
+    const card = document.createElement('div');
+    card.className = `request-card ${exploration.status}`;
+    card.onclick = () => openExplorationModal(exploration);
+    
+    const ratingDisplay = exploration.rating ? 
+        `⭐`.repeat(exploration.rating) + ` (${exploration.rating}/5)` : 
+        'No rating';
+    
+    card.innerHTML = `
+        <div class="request-header">
+            <h3 class="request-title">🏚️ ${exploration.location_name}</h3>
+            <span class="request-status ${exploration.status}">${exploration.status.toUpperCase()}</span>
+        </div>
+        
+        <div class="request-info">
+            <div class="info-item">
+                <strong>Explorer:</strong> ${exploration.username}
+            </div>
+            <div class="info-item">
+                <strong>Rating:</strong> ${ratingDisplay}
+            </div>
+            <div class="info-item">
+                <strong>Photos:</strong> ${exploration.photos.length} uploaded
+            </div>
+            <div class="info-item">
+                <strong>Type:</strong> Location Exploration (+50 XP)
+            </div>
+        </div>
+        
+        ${exploration.description ? `<div class="request-description">${exploration.description}</div>` : ''}
+        
+        <div class="request-meta">
+            <span>Submitted: ${formatDate(exploration.created_at)}</span>
+            ${exploration.status === 'pending' ? `
+                <div class="quick-actions">
+                    <button class="quick-approve" onclick="event.stopPropagation(); quickAction('${exploration._id}', 'approved', 'exploration')">Approve</button>
+                    <button class="quick-reject" onclick="event.stopPropagation(); quickAction('${exploration._id}', 'rejected', 'exploration')">Reject</button>
+                </div>
+            ` : ''}
+        </div>
+    `;
+    
+    return card;
+}
+
+// Quick action from card
+async function quickAction(id, action, type) {
+    if (confirm(`Are you sure you want to ${action} this ${type}?`)) {
+        if (type === 'request') {
+            await updateRequestStatus(id, action);
+        } else {
+            await updateExplorationStatus(id, action);
+        }
     }
 }
 
 // Open request modal
 async function openRequestModal(request) {
     selectedRequest = request;
+    selectedExploration = null;
     
     // Load request images
     const images = await loadRequestImages(request._id);
@@ -249,6 +297,10 @@ async function openRequestModal(request) {
                 <strong>Submitted</strong>
                 <span>${formatDate(request.created_at)}</span>
             </div>
+            <div class="detail-item">
+                <strong>Experience Reward</strong>
+                <span>+100 XP</span>
+            </div>
         </div>
         
         ${request.description ? `
@@ -260,6 +312,95 @@ async function openRequestModal(request) {
     `;
     
     // Display images
+    displayImages(images);
+    
+    // Show/hide action buttons
+    updateModalButtons(request.status);
+    
+    modal.style.display = 'block';
+}
+
+// Open exploration modal
+async function openExplorationModal(exploration) {
+    selectedExploration = exploration;
+    selectedRequest = null;
+    
+    // Load exploration images
+    const images = await loadExplorationImages(exploration._id);
+    
+    const requestDetails = document.getElementById('requestDetails');
+    const ratingDisplay = exploration.rating ? 
+        `⭐`.repeat(exploration.rating) + ` (${exploration.rating}/5)` : 
+        'No rating provided';
+    
+    requestDetails.innerHTML = `
+        <div class="detail-grid">
+            <div class="detail-item">
+                <strong>Location</strong>
+                <span>${exploration.location_name}</span>
+            </div>
+            <div class="detail-item">
+                <strong>Explorer</strong>
+                <span>${exploration.username}</span>
+            </div>
+            <div class="detail-item">
+                <strong>Rating</strong>
+                <span>${ratingDisplay}</span>
+            </div>
+            <div class="detail-item">
+                <strong>Photos</strong>
+                <span>${exploration.photos.length} uploaded</span>
+            </div>
+            <div class="detail-item">
+                <strong>Type</strong>
+                <span>${exploration.exploration_type}</span>
+            </div>
+            <div class="detail-item">
+                <strong>Status</strong>
+                <span class="request-status ${exploration.status}">${exploration.status.toUpperCase()}</span>
+            </div>
+            <div class="detail-item">
+                <strong>Submitted</strong>
+                <span>${formatDate(exploration.created_at)}</span>
+            </div>
+            <div class="detail-item">
+                <strong>Experience Reward</strong>
+                <span>+${exploration.exp_gained} XP</span>
+            </div>
+            ${exploration.reviewed_at ? `
+                <div class="detail-item">
+                    <strong>Reviewed</strong>
+                    <span>${formatDate(exploration.reviewed_at)}</span>
+                </div>
+            ` : ''}
+        </div>
+        
+        ${exploration.description ? `
+            <div class="detail-item" style="grid-column: 1 / -1;">
+                <strong>Description</strong>
+                <span>${exploration.description}</span>
+            </div>
+        ` : ''}
+        
+        ${exploration.admin_notes ? `
+            <div class="detail-item" style="grid-column: 1 / -1;">
+                <strong>Admin Notes</strong>
+                <span>${exploration.admin_notes}</span>
+            </div>
+        ` : ''}
+    `;
+    
+    // Display images
+    displayImages(images);
+    
+    // Show/hide action buttons
+    updateModalButtons(exploration.status);
+    
+    modal.style.display = 'block';
+}
+
+// Display images in modal
+function displayImages(images) {
     const requestImages = document.getElementById('requestImages');
     if (images.length > 0) {
         requestImages.innerHTML = `
@@ -276,17 +417,17 @@ async function openRequestModal(request) {
     } else {
         requestImages.innerHTML = '<h3>No images uploaded</h3>';
     }
-    
-    // Show/hide action buttons based on status
-    if (request.status === 'pending') {
+}
+
+// Update modal action buttons
+function updateModalButtons(status) {
+    if (status === 'pending') {
         approveBtn.style.display = 'block';
         rejectBtn.style.display = 'block';
     } else {
         approveBtn.style.display = 'none';
         rejectBtn.style.display = 'none';
     }
-    
-    modal.style.display = 'block';
 }
 
 // Load images for a request
@@ -303,13 +444,32 @@ async function loadRequestImages(requestId) {
     }
 }
 
+// Load images for an exploration
+async function loadExplorationImages(explorationId) {
+    try {
+        const response = await fetch(`/api/admin/explorations/${explorationId}/images`);
+        if (response.ok) {
+            return await response.json();
+        }
+        return [];
+    } catch (error) {
+        console.error('Error loading exploration images:', error);
+        return [];
+    }
+}
+
 // Handle approve/reject actions
-async function handleRequestAction(action) {
-    if (!selectedRequest) return;
-    
-    if (confirm(`Are you sure you want to ${action} this request?`)) {
-        await updateRequestStatus(selectedRequest._id, action);
-        closeModal();
+async function handleAction(action) {
+    if (selectedRequest) {
+        if (confirm(`Are you sure you want to ${action} this request?`)) {
+            await updateRequestStatus(selectedRequest._id, action);
+            closeModal();
+        }
+    } else if (selectedExploration) {
+        if (confirm(`Are you sure you want to ${action} this exploration?`)) {
+            await updateExplorationStatus(selectedExploration._id, action);
+            closeModal();
+        }
     }
 }
 
@@ -340,8 +500,149 @@ async function updateRequestStatus(requestId, status) {
     }
 }
 
+// Update exploration status
+async function updateExplorationStatus(explorationId, status) {
+    try {
+        const endpoint = status === 'approved' ? 'approve' : 'reject';
+        const response = await fetch(`/api/admin/explorations/${explorationId}/${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            alert(result.message);
+            // Reload data
+            await loadExplorations();
+            await loadStats();
+        } else {
+            alert(result.error || `Error ${status}ing exploration`);
+        }
+        
+    } catch (error) {
+        console.error(`Error ${status}ing exploration:`, error);
+        alert(`Error ${status}ing exploration`);
+    }
+}
+
 // Close modal
 function closeModal() {
     modal.style.display = 'none';
     selectedRequest = null;
+    selectedExploration = null;
 }
+function updateViewButtons() {
+    viewToggleBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.view === currentView) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Update section title
+    const sectionTitle = document.querySelector('.filter-section h2');
+    if (sectionTitle) {
+        sectionTitle.textContent = currentView === 'requests' ? 'Location Requests' : 'Location Explorations';
+    }
+}
+
+// Load all requests
+async function loadRequests() {
+    try {
+        loadingSpinner.style.display = 'block';
+        requestsList.style.display = 'none';
+        noRequests.style.display = 'none';
+        
+        const response = await fetch('/api/requests');
+        if (!response.ok) {
+            throw new Error('Failed to load requests');
+        }
+        
+        allRequests = await response.json();
+        console.log('Loaded requests:', allRequests);
+        
+        loadingSpinner.style.display = 'none';
+        filterRequests();
+        
+    } catch (error) {
+        console.error('Error loading requests:', error);
+        loadingSpinner.style.display = 'none';
+        alert('Error loading requests');
+    }
+}
+
+// Load all explorations
+async function loadExplorations() {
+    try {
+        loadingSpinner.style.display = 'block';
+        requestsList.style.display = 'none';
+        noRequests.style.display = 'none';
+        
+        const response = await fetch('/api/admin/explorations');
+        if (!response.ok) {
+            throw new Error('Failed to load explorations');
+        }
+        
+        allExplorations = await response.json();
+        console.log('Loaded explorations:', allExplorations);
+        
+        loadingSpinner.style.display = 'none';
+        filterExplorations();
+        
+    } catch (error) {
+        console.error('Error loading explorations:', error);
+        loadingSpinner.style.display = 'none';
+        alert('Error loading explorations');
+    }
+}
+
+// Load statistics
+async function loadStats() {
+    try {
+        // Load request stats
+        const pendingResponse = await fetch('/api/requests/status/pending');
+        const approvedResponse = await fetch('/api/requests/status/approved');
+        const rejectedResponse = await fetch('/api/requests/status/rejected');
+        
+        const pending = await pendingResponse.json();
+        const approved = await approvedResponse.json();
+        const rejected = await rejectedResponse.json();
+
+        // Load exploration stats
+        const pendingExpResponse = await fetch('/api/admin/explorations/status/pending');
+        const approvedExpResponse = await fetch('/api/admin/explorations/status/approved');
+        const rejectedExpResponse = await fetch('/api/admin/explorations/status/rejected');
+        
+        const pendingExp = await pendingExpResponse.json();
+        const approvedExp = await approvedExpResponse.json();
+        const rejectedExp = await rejectedExpResponse.json();
+        
+        // Filter for today
+        const today = new Date().toDateString();
+        const approvedToday = approved.filter(req => 
+            new Date(req.created_at).toDateString() === today
+        );
+        const rejectedToday = rejected.filter(req => 
+            new Date(req.created_at).toDateString() === today
+        );
+        const approvedExpToday = approvedExp.filter(exp => 
+            new Date(exp.reviewed_at).toDateString() === today
+        );
+        const rejectedExpToday = rejectedExp.filter(exp => 
+            new Date(exp.reviewed_at).toDateString() === today
+        );
+        
+        // Update stats display
+        document.getElementById('pendingCount').textContent = pending.length + pendingExp.length;
+        document.getElementById('approvedCount').textContent = approvedToday.length + approvedExpToday.length;
+        document.getElementById('rejectedCount').textContent = rejectedToday.length + rejectedExpToday.length;
+        
+    } catch (error) {
+        console.error('Error loading stats:', error);
+    }
+}
+
+// Update
