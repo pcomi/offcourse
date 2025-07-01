@@ -51,6 +51,10 @@
                     <h3 id="rejectedCount">0</h3>
                     <p>Rejected Today</p>
                 </div>
+                <div class="stat-card">
+                    <h3 id="inviteCount">0</h3>
+                    <p>Active Invites</p>
+                </div>
             </div>
         </div>
 
@@ -60,13 +64,20 @@
                 <div class="view-toggle">
                     <button class="view-toggle-btn active" data-view="requests">📍 Requests</button>
                     <button class="view-toggle-btn" data-view="explorations">🏚️ Explorations</button>
+                    <button class="view-toggle-btn" data-view="invites">🎫 Invites</button>
                 </div>
             </div>
-            <div class="filter-buttons">
+            <div id="regularFilters" class="filter-buttons">
                 <button class="filter-btn active" data-filter="pending">Pending</button>
                 <button class="filter-btn" data-filter="approved">Approved</button>
                 <button class="filter-btn" data-filter="rejected">Rejected</button>
                 <button class="filter-btn" data-filter="all">All</button>
+            </div>
+            <div id="inviteFilters" class="filter-buttons" style="display: none;">
+                <button class="filter-btn active" data-filter="unused">Unused</button>
+                <button class="filter-btn" data-filter="used">Used</button>
+                <button class="filter-btn" data-filter="all">All</button>
+                <button id="createInviteBtn" class="create-invite-btn">+ Create Invite</button>
             </div>
         </div>
 

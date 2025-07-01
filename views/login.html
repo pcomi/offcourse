@@ -42,20 +42,28 @@
 
         <div id="signupForm" class="form">
             <label class="labels">Sign up</label>
+            <div class="invite-notice">
+                <p>🔒 Off Course is invite-only. You need a valid invite code to create an account.</p>
+            </div>
             <form>
                 <div class="input-group">
-                    <label for="signupUsername">Username</label>
+                    <label for="signupInviteCode">Invite Code *</label>
+                    <input type="text" id="signupInviteCode" name="inviteCode" placeholder="Enter your invite code" required maxlength="8" style="text-transform: uppercase;">
+                    <small class="input-help">8-character code (e.g., ABC123DE)</small>
+                </div>
+                <div class="input-group">
+                    <label for="signupUsername">Username *</label>
                     <input type="text" id="signupUsername" name="username" required>
                 </div>
                 <div class="input-group">
-                    <label for="signupEmail">Email</label>
+                    <label for="signupEmail">Email *</label>
                     <input type="email" id="signupEmail" name="email" required>
                 </div>
                 <div class="input-group">
-                    <label for="signupPassword">Password</label>
+                    <label for="signupPassword">Password *</label>
                     <input type="password" id="signupPassword" name="password" required>
                 </div>
-                <button type="submit" class="form-btn">Signup</button>
+                <button type="submit" class="form-btn">Sign Up</button>
             </form>
         </div>
     </div>

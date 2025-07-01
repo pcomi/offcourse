@@ -1,5 +1,3 @@
-// public/scripts/getLocations.js (UPDATED with Explore button)
-
 const locationIcon = L.icon({
     iconUrl: '../icons/marker.png',
     iconSize: [32, 32],

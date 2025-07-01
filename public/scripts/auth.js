@@ -14,6 +14,16 @@ document.getElementById('toggleSignup').addEventListener('click', function()
     document.getElementById('toggleLogin').classList.remove('active');
 });
 
+// Auto-format invite code input
+document.getElementById('signupInviteCode').addEventListener('input', function(e) {
+    // Convert to uppercase and limit to 8 characters
+    let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (value.length > 8) {
+        value = value.substring(0, 8);
+    }
+    e.target.value = value;
+});
+
 //signup
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -21,9 +31,15 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     const username = document.getElementById('signupUsername').value;
     const password = document.getElementById('signupPassword').value;
     const email = document.getElementById('signupEmail').value;
+    const inviteCode = document.getElementById('signupInviteCode').value;
 
-    if (username && password && email) 
+    if (username && password && email && inviteCode) 
     {
+        if (inviteCode.length !== 8) {
+            alert('Invite code must be exactly 8 characters long.');
+            return;
+        }
+
         try 
         {
             const response = await fetch('/api/users/signup', {
@@ -31,7 +47,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password, email }),
+                body: JSON.stringify({ username, password, email, inviteCode }),
             });
 
             const data = await response.json();
@@ -46,12 +62,13 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
         } 
         catch (error) 
         {
+            console.error('Signup error:', error);
             alert('Error signing up. Please try again later.');
         }
     } 
     else 
     {
-        alert('Please fill in all fields.');
+        alert('Please fill in all fields, including the invite code.');
     }
 });
 
