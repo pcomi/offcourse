@@ -578,3 +578,59 @@ body {
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+/* Invite-specific styles */
+.request-card.unused {
+    border-left-color: #00b894;
+}
+
+.request-card.used {
+    border-left-color: #636e72;
+}
+
+.request-status.unused {
+    background-color: #00b894;
+    color: white;
+}
+
+.request-status.used {
+    background-color: #636e72;
+    color: white;
+}
+
+/* Create invite button */
+.create-invite-btn {
+    background: linear-gradient(45deg, #00b894, #00cec9);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-left: auto;
+}
+
+.create-invite-btn:hover {
+    background: linear-gradient(45deg, #019875, #00a085);
+    transform: translateY(-1px);
+}
+
+/* Filter buttons container adjustments */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#inviteFilters {
+    justify-content: space-between;
+}
+
+/* Invite code styling in cards */
+.request-title {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}

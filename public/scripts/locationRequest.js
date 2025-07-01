@@ -1,4 +1,3 @@
-// Modal functionality
 const modal = document.getElementById('requestModal');
 const requestBtn = document.getElementById('requestLocationBtn');
 const closeBtn = document.querySelector('.close');

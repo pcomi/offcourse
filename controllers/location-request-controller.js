@@ -1,4 +1,3 @@
-// controllers/location-request-controller.js (UPDATED with EXP system)
 const LocationRequest = require('../models/location-request-model');
 const Upload = require('../models/upload-model');
 const Location = require('../models/location-model');

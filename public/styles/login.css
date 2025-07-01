@@ -166,3 +166,40 @@ input:focus {
 .form-btn:hover {
     background-color: #1b0f4b;
 }
+
+.invite-notice {
+    background: linear-gradient(135deg, #2c1f6a, #3498db);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.invite-notice p {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.input-help {
+    display: block;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Style for invite code input */
+#signupInviteCode {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+#signupInviteCode::placeholder {
+    letter-spacing: normal;
+    font-weight: normal;
+}

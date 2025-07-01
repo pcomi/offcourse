@@ -1,4 +1,3 @@
-// Get location ID from URL parameters
 const urlParams = new URLSearchParams(window.location.search);
 const locationId = urlParams.get('id');
 

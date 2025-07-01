@@ -1,4 +1,3 @@
-// Token utility functions - only create if doesn't exist
 if (typeof window.TokenUtils === 'undefined') {
     const TokenUtils = {
         // Get a specific cookie by name

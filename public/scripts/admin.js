@@ -1,10 +1,8 @@
-// public/scripts/admin.js (UPDATED with explorations)
-
-// Global variables
 let allRequests = [];
 let allExplorations = [];
+let allInvites = [];
 let currentFilter = 'pending';
-let currentView = 'requests'; // 'requests' or 'explorations'
+let currentView = 'requests';
 let selectedRequest = null;
 let selectedExploration = null;
 
@@ -35,6 +33,9 @@ const closeBtn = document.querySelector('.close');
 const approveBtn = document.getElementById('approveBtn');
 const rejectBtn = document.getElementById('rejectBtn');
 const closeModalBtn = document.getElementById('closeBtn');
+const regularFilters = document.getElementById('regularFilters');
+const inviteFilters = document.getElementById('inviteFilters');
+const createInviteBtn = document.getElementById('createInviteBtn');
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,11 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', (e) => {
             currentFilter = e.target.dataset.filter;
             updateFilterButtons();
-            if (currentView === 'requests') {
-                filterRequests();
-            } else {
-                filterExplorations();
-            }
+            filterCurrentView();
         });
     });
 
@@ -63,14 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
     viewToggleBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentView = e.target.dataset.view;
+            currentFilter = currentView === 'invites' ? 'unused' : 'pending';
             updateViewButtons();
-            if (currentView === 'requests') {
-                loadRequests();
-            } else {
-                loadExplorations();
-            }
+            updateFilterVisibility();
+            loadCurrentView();
         });
     });
+    
+    // Create invite button
+    createInviteBtn.addEventListener('click', createInvite);
     
     // Modal event listeners
     closeBtn.addEventListener('click', closeModal);
@@ -89,14 +87,203 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStats();
 });
 
+// Update filter button visibility based on current view
+function updateFilterVisibility() {
+    if (currentView === 'invites') {
+        regularFilters.style.display = 'none';
+        inviteFilters.style.display = 'flex';
+    } else {
+        regularFilters.style.display = 'flex';
+        inviteFilters.style.display = 'none';
+    }
+    updateFilterButtons();
+}
+
 // Update filter buttons
 function updateFilterButtons() {
-    filterBtns.forEach(btn => {
+    const activeFilterContainer = currentView === 'invites' ? inviteFilters : regularFilters;
+    const buttons = activeFilterContainer.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => {
         btn.classList.remove('active');
         if (btn.dataset.filter === currentFilter) {
             btn.classList.add('active');
         }
     });
+}
+
+// Filter current view
+function filterCurrentView() {
+    if (currentView === 'requests') {
+        filterRequests();
+    } else if (currentView === 'explorations') {
+        filterExplorations();
+    } else if (currentView === 'invites') {
+        filterInvites();
+    }
+}
+
+// Load current view
+function loadCurrentView() {
+    if (currentView === 'requests') {
+        loadRequests();
+    } else if (currentView === 'explorations') {
+        loadExplorations();
+    } else if (currentView === 'invites') {
+        loadInvites();
+    }
+}
+
+// Filter and display invites
+function filterInvites() {
+    let filteredInvites = allInvites;
+    
+    if (currentFilter === 'unused') {
+        filteredInvites = allInvites.filter(invite => !invite.is_used);
+    } else if (currentFilter === 'used') {
+        filteredInvites = allInvites.filter(invite => invite.is_used);
+    }
+    
+    if (filteredInvites.length === 0) {
+        requestsList.style.display = 'none';
+        noRequests.style.display = 'block';
+        noRequests.textContent = 'No invite codes found.';
+        return;
+    }
+    
+    noRequests.style.display = 'none';
+    requestsList.style.display = 'block';
+    requestsList.innerHTML = '';
+    
+    filteredInvites.forEach(invite => {
+        const inviteCard = createInviteCard(invite);
+        requestsList.appendChild(inviteCard);
+    });
+}
+
+// Create invite card element
+function createInviteCard(invite) {
+    const card = document.createElement('div');
+    card.className = `request-card ${invite.is_used ? 'used' : 'unused'}`;
+    
+    card.innerHTML = `
+        <div class="request-header">
+            <h3 class="request-title">🎫 ${invite.code}</h3>
+            <span class="request-status ${invite.is_used ? 'used' : 'unused'}">${invite.is_used ? 'USED' : 'ACTIVE'}</span>
+        </div>
+        
+        <div class="request-info">
+            <div class="info-item">
+                <strong>Created by:</strong> ${invite.created_by}
+            </div>
+            <div class="info-item">
+                <strong>Created:</strong> ${formatDate(invite.created_at)}
+            </div>
+            ${invite.is_used ? `
+                <div class="info-item">
+                    <strong>Used by:</strong> ${invite.used_by}
+                </div>
+                <div class="info-item">
+                    <strong>Used at:</strong> ${formatDate(invite.used_at)}
+                </div>
+            ` : ''}
+        </div>
+        
+        <div class="request-meta">
+            <span>Code: <strong>${invite.code}</strong></span>
+            ${!invite.is_used ? `
+                <div class="quick-actions">
+                    <button class="quick-reject" onclick="deleteInvite('${invite.code}')">Delete</button>
+                </div>
+            ` : ''}
+        </div>
+    `;
+    
+    return card;
+}
+
+// Create new invite
+async function createInvite() {
+    const userData = TokenUtils.getUserDataFromToken();
+    if (!userData) {
+        alert('You must be logged in to create invites');
+        return;
+    }
+    
+    if (confirm('Create a new invite code?')) {
+        try {
+            const response = await fetch('/api/admin/invites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    created_by: userData.username
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                alert(`Invite code created: ${result.invite.code}`);
+                await loadInvites();
+                await loadStats();
+            } else {
+                alert(result.error || 'Error creating invite code');
+            }
+        } catch (error) {
+            console.error('Error creating invite:', error);
+            alert('Error creating invite code');
+        }
+    }
+}
+
+// Delete invite
+async function deleteInvite(code) {
+    if (confirm(`Delete invite code ${code}?`)) {
+        try {
+            const response = await fetch(`/api/admin/invites/${code}`, {
+                method: 'DELETE'
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                alert(result.message);
+                await loadInvites();
+                await loadStats();
+            } else {
+                alert(result.error || 'Error deleting invite code');
+            }
+        } catch (error) {
+            console.error('Error deleting invite:', error);
+            alert('Error deleting invite code');
+        }
+    }
+}
+
+// Load all invites
+async function loadInvites() {
+    try {
+        loadingSpinner.style.display = 'block';
+        requestsList.style.display = 'none';
+        noRequests.style.display = 'none';
+        
+        const response = await fetch('/api/admin/invites');
+        if (!response.ok) {
+            throw new Error('Failed to load invites');
+        }
+        
+        allInvites = await response.json();
+        console.log('Loaded invites:', allInvites);
+        
+        loadingSpinner.style.display = 'none';
+        filterInvites();
+        
+    } catch (error) {
+        console.error('Error loading invites:', error);
+        loadingSpinner.style.display = 'none';
+        alert('Error loading invites');
+    }
 }
 
 // Filter and display requests
@@ -534,6 +721,7 @@ function closeModal() {
     selectedRequest = null;
     selectedExploration = null;
 }
+
 function updateViewButtons() {
     viewToggleBtns.forEach(btn => {
         btn.classList.remove('active');
@@ -545,7 +733,13 @@ function updateViewButtons() {
     // Update section title
     const sectionTitle = document.querySelector('.filter-section h2');
     if (sectionTitle) {
-        sectionTitle.textContent = currentView === 'requests' ? 'Location Requests' : 'Location Explorations';
+        if (currentView === 'requests') {
+            sectionTitle.textContent = 'Location Requests';
+        } else if (currentView === 'explorations') {
+            sectionTitle.textContent = 'Location Explorations';
+        } else if (currentView === 'invites') {
+            sectionTitle.textContent = 'Invite Codes';
+        }
     }
 }
 
@@ -619,6 +813,11 @@ async function loadStats() {
         const pendingExp = await pendingExpResponse.json();
         const approvedExp = await approvedExpResponse.json();
         const rejectedExp = await rejectedExpResponse.json();
+
+        // Load invite stats
+        const invitesResponse = await fetch('/api/admin/invites');
+        const invites = await invitesResponse.json();
+        const activeInvites = invites.filter(invite => !invite.is_used);
         
         // Filter for today
         const today = new Date().toDateString();
@@ -639,10 +838,9 @@ async function loadStats() {
         document.getElementById('pendingCount').textContent = pending.length + pendingExp.length;
         document.getElementById('approvedCount').textContent = approvedToday.length + approvedExpToday.length;
         document.getElementById('rejectedCount').textContent = rejectedToday.length + rejectedExpToday.length;
+        document.getElementById('inviteCount').textContent = activeInvites.length;
         
     } catch (error) {
         console.error('Error loading stats:', error);
     }
 }
-
-// Update
