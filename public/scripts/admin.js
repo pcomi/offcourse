@@ -6,12 +6,14 @@ let currentView = 'requests';
 let selectedRequest = null;
 let selectedExploration = null;
 
-function logout() {
+function logout() 
+{
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
     window.location.href = '/login';
 }
 
-function formatDate(dateString) {
+function formatDate(dateString) 
+{
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
         year: 'numeric',
@@ -22,7 +24,7 @@ function formatDate(dateString) {
     });
 }
 
-// DOM elements
+///DOM
 const filterBtns = document.querySelectorAll('.filter-btn');
 const viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
 const requestsList = document.getElementById('requestsList');
@@ -37,17 +39,16 @@ const regularFilters = document.getElementById('regularFilters');
 const inviteFilters = document.getElementById('inviteFilters');
 const createInviteBtn = document.getElementById('createInviteBtn');
 
-// Initialize page
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => 
+{
     const userData = TokenUtils.getUserDataFromToken();
-    if (userData) {
+    if (userData) 
+    {
         document.getElementById('username').value = userData.username;
     }
     
-    // Event listeners
     document.getElementById('logoutButton').addEventListener('click', logout);
     
-    // Filter buttons
     filterBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentFilter = e.target.dataset.filter;
@@ -56,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // View toggle buttons
     viewToggleBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentView = e.target.dataset.view;
@@ -67,83 +67,99 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Create invite button
     createInviteBtn.addEventListener('click', createInvite);
     
-    // Modal event listeners
     closeBtn.addEventListener('click', closeModal);
     closeModalBtn.addEventListener('click', closeModal);
     approveBtn.addEventListener('click', () => handleAction('approved'));
     rejectBtn.addEventListener('click', () => handleAction('rejected'));
     
     window.addEventListener('click', (e) => {
-        if (e.target === modal) {
+        if (e.target === modal) 
+        {
             closeModal();
         }
     });
     
-    // Load initial data
     loadRequests();
     loadStats();
 });
 
-// Update filter button visibility based on current view
-function updateFilterVisibility() {
-    if (currentView === 'invites') {
+function updateFilterVisibility() 
+{
+    if (currentView === 'invites') 
+    {
         regularFilters.style.display = 'none';
         inviteFilters.style.display = 'flex';
-    } else {
+    } 
+    else 
+    {
         regularFilters.style.display = 'flex';
         inviteFilters.style.display = 'none';
     }
     updateFilterButtons();
 }
 
-// Update filter buttons
-function updateFilterButtons() {
+function updateFilterButtons() 
+{
     const activeFilterContainer = currentView === 'invites' ? inviteFilters : regularFilters;
     const buttons = activeFilterContainer.querySelectorAll('.filter-btn');
     buttons.forEach(btn => {
         btn.classList.remove('active');
-        if (btn.dataset.filter === currentFilter) {
+        if (btn.dataset.filter === currentFilter) 
+        {
             btn.classList.add('active');
         }
     });
 }
 
-// Filter current view
-function filterCurrentView() {
-    if (currentView === 'requests') {
+function filterCurrentView() 
+{
+    if (currentView === 'requests') 
+    {
         filterRequests();
-    } else if (currentView === 'explorations') {
+    } 
+    else if (currentView === 'explorations')
+    {
         filterExplorations();
-    } else if (currentView === 'invites') {
+    } 
+    else if (currentView === 'invites') 
+    {
         filterInvites();
     }
 }
 
-// Load current view
-function loadCurrentView() {
-    if (currentView === 'requests') {
+function loadCurrentView() 
+{
+    if (currentView === 'requests') 
+    {
         loadRequests();
-    } else if (currentView === 'explorations') {
+    } 
+    else if (currentView === 'explorations') 
+    {
         loadExplorations();
-    } else if (currentView === 'invites') {
+    } 
+    else if (currentView === 'invites') 
+    {
         loadInvites();
     }
 }
 
-// Filter and display invites
-function filterInvites() {
+function filterInvites() 
+{
     let filteredInvites = allInvites;
     
-    if (currentFilter === 'unused') {
+    if (currentFilter === 'unused') 
+    {
         filteredInvites = allInvites.filter(invite => !invite.is_used);
-    } else if (currentFilter === 'used') {
+    } 
+    else if (currentFilter === 'used') 
+    {
         filteredInvites = allInvites.filter(invite => invite.is_used);
     }
     
-    if (filteredInvites.length === 0) {
+    if (filteredInvites.length === 0) 
+    {
         requestsList.style.display = 'none';
         noRequests.style.display = 'block';
         noRequests.textContent = 'No invite codes found.';
@@ -160,8 +176,8 @@ function filterInvites() {
     });
 }
 
-// Create invite card element
-function createInviteCard(invite) {
+function createInviteCard(invite) 
+{
     const card = document.createElement('div');
     card.className = `request-card ${invite.is_used ? 'used' : 'unused'}`;
     
@@ -201,16 +217,19 @@ function createInviteCard(invite) {
     return card;
 }
 
-// Create new invite
-async function createInvite() {
+async function createInvite() 
+{
     const userData = TokenUtils.getUserDataFromToken();
-    if (!userData) {
+    if (!userData) 
+    {
         alert('You must be logged in to create invites');
         return;
     }
     
-    if (confirm('Create a new invite code?')) {
-        try {
+    if (confirm('Create a new invite code?')) 
+    {
+        try 
+        {
             const response = await fetch('/api/admin/invites', {
                 method: 'POST',
                 headers: {
@@ -223,53 +242,67 @@ async function createInvite() {
             
             const result = await response.json();
             
-            if (response.ok) {
+            if (response.ok) 
+            {
                 alert(`Invite code created: ${result.invite.code}`);
                 await loadInvites();
                 await loadStats();
-            } else {
+            } 
+            else 
+            {
                 alert(result.error || 'Error creating invite code');
             }
-        } catch (error) {
+        } 
+        catch (error) 
+        {
             console.error('Error creating invite:', error);
             alert('Error creating invite code');
         }
     }
 }
 
-// Delete invite
-async function deleteInvite(code) {
-    if (confirm(`Delete invite code ${code}?`)) {
-        try {
+async function deleteInvite(code) 
+{
+    if (confirm(`Delete invite code ${code}?`)) 
+    {
+        try
+        {
             const response = await fetch(`/api/admin/invites/${code}`, {
                 method: 'DELETE'
             });
             
             const result = await response.json();
             
-            if (response.ok) {
+            if (response.ok) 
+            {
                 alert(result.message);
                 await loadInvites();
                 await loadStats();
-            } else {
+            } 
+            else 
+            {
                 alert(result.error || 'Error deleting invite code');
             }
-        } catch (error) {
+        } 
+        catch (error) 
+        {
             console.error('Error deleting invite:', error);
             alert('Error deleting invite code');
         }
     }
 }
 
-// Load all invites
-async function loadInvites() {
-    try {
+async function loadInvites() 
+{
+    try 
+    {
         loadingSpinner.style.display = 'block';
         requestsList.style.display = 'none';
         noRequests.style.display = 'none';
         
         const response = await fetch('/api/admin/invites');
-        if (!response.ok) {
+        if (!response.ok) 
+        {
             throw new Error('Failed to load invites');
         }
         
@@ -279,22 +312,26 @@ async function loadInvites() {
         loadingSpinner.style.display = 'none';
         filterInvites();
         
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error loading invites:', error);
         loadingSpinner.style.display = 'none';
         alert('Error loading invites');
     }
 }
 
-// Filter and display requests
-function filterRequests() {
+function filterRequests() 
+{
     let filteredRequests = allRequests;
     
-    if (currentFilter !== 'all') {
+    if (currentFilter !== 'all') 
+    {
         filteredRequests = allRequests.filter(req => req.status === currentFilter);
     }
     
-    if (filteredRequests.length === 0) {
+    if (filteredRequests.length === 0) 
+    {
         requestsList.style.display = 'none';
         noRequests.style.display = 'block';
         noRequests.textContent = 'No requests found.';
@@ -311,15 +348,17 @@ function filterRequests() {
     });
 }
 
-// Filter and display explorations
-function filterExplorations() {
+function filterExplorations() 
+{
     let filteredExplorations = allExplorations;
     
-    if (currentFilter !== 'all') {
+    if (currentFilter !== 'all') 
+    {
         filteredExplorations = allExplorations.filter(exp => exp.status === currentFilter);
     }
     
-    if (filteredExplorations.length === 0) {
+    if (filteredExplorations.length === 0) 
+    {
         requestsList.style.display = 'none';
         noRequests.style.display = 'block';
         noRequests.textContent = 'No explorations found.';
@@ -336,8 +375,8 @@ function filterExplorations() {
     });
 }
 
-// Create request card element
-function createRequestCard(request) {
+function createRequestCard(request) 
+{
     const card = document.createElement('div');
     card.className = `request-card ${request.status}`;
     card.onclick = () => openRequestModal(request);
@@ -379,8 +418,8 @@ function createRequestCard(request) {
     return card;
 }
 
-// Create exploration card element
-function createExplorationCard(exploration) {
+function createExplorationCard(exploration) 
+{
     const card = document.createElement('div');
     card.className = `request-card ${exploration.status}`;
     card.onclick = () => openExplorationModal(exploration);
@@ -426,9 +465,10 @@ function createExplorationCard(exploration) {
     return card;
 }
 
-// Quick action from card
-async function quickAction(id, action, type) {
-    if (confirm(`Are you sure you want to ${action} this ${type}?`)) {
+async function quickAction(id, action, type) 
+{
+    if (confirm(`Are you sure you want to ${action} this ${type}?`)) 
+        {
         if (type === 'request') {
             await updateRequestStatus(id, action);
         } else {
@@ -437,12 +477,11 @@ async function quickAction(id, action, type) {
     }
 }
 
-// Open request modal
-async function openRequestModal(request) {
+async function openRequestModal(request) 
+{
     selectedRequest = request;
     selectedExploration = null;
     
-    // Load request images
     const images = await loadRequestImages(request._id);
     
     const requestDetails = document.getElementById('requestDetails');
@@ -498,21 +537,18 @@ async function openRequestModal(request) {
         ` : ''}
     `;
     
-    // Display images
     displayImages(images);
     
-    // Show/hide action buttons
     updateModalButtons(request.status);
     
     modal.style.display = 'block';
 }
 
-// Open exploration modal
-async function openExplorationModal(exploration) {
+async function openExplorationModal(exploration) 
+{
     selectedExploration = exploration;
     selectedRequest = null;
     
-    // Load exploration images
     const images = await loadExplorationImages(exploration._id);
     
     const requestDetails = document.getElementById('requestDetails');
@@ -577,19 +613,18 @@ async function openExplorationModal(exploration) {
         ` : ''}
     `;
     
-    // Display images
     displayImages(images);
     
-    // Show/hide action buttons
     updateModalButtons(exploration.status);
     
     modal.style.display = 'block';
 }
 
-// Display images in modal
-function displayImages(images) {
+function displayImages(images) 
+{
     const requestImages = document.getElementById('requestImages');
-    if (images.length > 0) {
+    if (images.length > 0) 
+    {
         requestImages.innerHTML = `
             <h3>Images (${images.length})</h3>
             <div class="images-grid">
@@ -601,68 +636,87 @@ function displayImages(images) {
                 `).join('')}
             </div>
         `;
-    } else {
+    } 
+    else 
+    {
         requestImages.innerHTML = '<h3>No images uploaded</h3>';
     }
 }
 
-// Update modal action buttons
-function updateModalButtons(status) {
-    if (status === 'pending') {
+function updateModalButtons(status) 
+{
+    if (status === 'pending') 
+    {
         approveBtn.style.display = 'block';
         rejectBtn.style.display = 'block';
-    } else {
+    } 
+    else 
+    {
         approveBtn.style.display = 'none';
         rejectBtn.style.display = 'none';
     }
 }
 
-// Load images for a request
-async function loadRequestImages(requestId) {
-    try {
+async function loadRequestImages(requestId) 
+{
+    try
+    {
         const response = await fetch(`/api/requests/${requestId}/images`);
-        if (response.ok) {
+        if (response.ok) 
+        {
             return await response.json();
         }
         return [];
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error loading request images:', error);
         return [];
     }
 }
 
-// Load images for an exploration
-async function loadExplorationImages(explorationId) {
-    try {
+async function loadExplorationImages(explorationId) 
+{
+    try 
+    {
         const response = await fetch(`/api/admin/explorations/${explorationId}/images`);
-        if (response.ok) {
+        if (response.ok)
+        {
             return await response.json();
         }
         return [];
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error loading exploration images:', error);
         return [];
     }
 }
 
-// Handle approve/reject actions
-async function handleAction(action) {
-    if (selectedRequest) {
-        if (confirm(`Are you sure you want to ${action} this request?`)) {
+async function handleAction(action) 
+{
+    if (selectedRequest) 
+    {
+        if (confirm(`Are you sure you want to ${action} this request?`)) 
+        {
             await updateRequestStatus(selectedRequest._id, action);
             closeModal();
         }
-    } else if (selectedExploration) {
-        if (confirm(`Are you sure you want to ${action} this exploration?`)) {
+    } 
+    else if (selectedExploration) 
+    {
+        if (confirm(`Are you sure you want to ${action} this exploration?`)) 
+        {
             await updateExplorationStatus(selectedExploration._id, action);
             closeModal();
         }
     }
 }
 
-// Update request status
-async function updateRequestStatus(requestId, status) {
-    try {
+async function updateRequestStatus(requestId, status) 
+{
+    try 
+    {
         const response = await fetch(`/api/requests/${requestId}/${status}`, {
             method: 'POST',
             headers: {
@@ -672,24 +726,29 @@ async function updateRequestStatus(requestId, status) {
         
         const result = await response.json();
         
-        if (response.ok) {
+        if (response.ok) 
+        {
             alert(result.message);
-            // Reload data
             await loadRequests();
             await loadStats();
-        } else {
+        } 
+        else 
+        {
             alert(result.error || `Error ${status}ing request`);
         }
         
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error(`Error ${status}ing request:`, error);
         alert(`Error ${status}ing request`);
     }
 }
 
-// Update exploration status
-async function updateExplorationStatus(explorationId, status) {
-    try {
+async function updateExplorationStatus(explorationId, status) 
+{
+    try 
+    {
         const endpoint = status === 'approved' ? 'approve' : 'reject';
         const response = await fetch(`/api/admin/explorations/${explorationId}/${endpoint}`, {
             method: 'POST',
@@ -700,58 +759,71 @@ async function updateExplorationStatus(explorationId, status) {
         
         const result = await response.json();
         
-        if (response.ok) {
+        if (response.ok) 
+        {
             alert(result.message);
-            // Reload data
             await loadExplorations();
             await loadStats();
-        } else {
+        } 
+        else 
+        {
             alert(result.error || `Error ${status}ing exploration`);
         }
         
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error(`Error ${status}ing exploration:`, error);
         alert(`Error ${status}ing exploration`);
     }
 }
 
-// Close modal
-function closeModal() {
+function closeModal() 
+{
     modal.style.display = 'none';
     selectedRequest = null;
     selectedExploration = null;
 }
 
-function updateViewButtons() {
+function updateViewButtons() 
+{
     viewToggleBtns.forEach(btn => {
         btn.classList.remove('active');
-        if (btn.dataset.view === currentView) {
+        if (btn.dataset.view === currentView) 
+        {
             btn.classList.add('active');
         }
     });
     
-    // Update section title
     const sectionTitle = document.querySelector('.filter-section h2');
-    if (sectionTitle) {
-        if (currentView === 'requests') {
+    if (sectionTitle)
+    {
+        if (currentView === 'requests') 
+        {
             sectionTitle.textContent = 'Location Requests';
-        } else if (currentView === 'explorations') {
+        } 
+        else if (currentView === 'explorations') 
+        {
             sectionTitle.textContent = 'Location Explorations';
-        } else if (currentView === 'invites') {
+        } 
+        else if (currentView === 'invites') 
+        {
             sectionTitle.textContent = 'Invite Codes';
         }
     }
 }
 
-// Load all requests
-async function loadRequests() {
-    try {
+async function loadRequests() 
+{
+    try 
+    {
         loadingSpinner.style.display = 'block';
         requestsList.style.display = 'none';
         noRequests.style.display = 'none';
         
         const response = await fetch('/api/requests');
-        if (!response.ok) {
+        if (!response.ok) 
+        {
             throw new Error('Failed to load requests');
         }
         
@@ -761,22 +833,26 @@ async function loadRequests() {
         loadingSpinner.style.display = 'none';
         filterRequests();
         
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error loading requests:', error);
         loadingSpinner.style.display = 'none';
         alert('Error loading requests');
     }
 }
 
-// Load all explorations
-async function loadExplorations() {
-    try {
+async function loadExplorations() 
+{
+    try
+    {
         loadingSpinner.style.display = 'block';
         requestsList.style.display = 'none';
         noRequests.style.display = 'none';
         
         const response = await fetch('/api/admin/explorations');
-        if (!response.ok) {
+        if (!response.ok) 
+        {
             throw new Error('Failed to load explorations');
         }
         
@@ -786,17 +862,19 @@ async function loadExplorations() {
         loadingSpinner.style.display = 'none';
         filterExplorations();
         
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error loading explorations:', error);
         loadingSpinner.style.display = 'none';
         alert('Error loading explorations');
     }
 }
 
-// Load statistics
-async function loadStats() {
-    try {
-        // Load request stats
+async function loadStats() 
+{
+    try 
+    {
         const pendingResponse = await fetch('/api/requests/status/pending');
         const approvedResponse = await fetch('/api/requests/status/approved');
         const rejectedResponse = await fetch('/api/requests/status/rejected');
@@ -805,7 +883,6 @@ async function loadStats() {
         const approved = await approvedResponse.json();
         const rejected = await rejectedResponse.json();
 
-        // Load exploration stats
         const pendingExpResponse = await fetch('/api/admin/explorations/status/pending');
         const approvedExpResponse = await fetch('/api/admin/explorations/status/approved');
         const rejectedExpResponse = await fetch('/api/admin/explorations/status/rejected');
@@ -814,12 +891,11 @@ async function loadStats() {
         const approvedExp = await approvedExpResponse.json();
         const rejectedExp = await rejectedExpResponse.json();
 
-        // Load invite stats
         const invitesResponse = await fetch('/api/admin/invites');
         const invites = await invitesResponse.json();
         const activeInvites = invites.filter(invite => !invite.is_used);
         
-        // Filter for today
+        ///today filter
         const today = new Date().toDateString();
         const approvedToday = approved.filter(req => 
             new Date(req.created_at).toDateString() === today
@@ -834,13 +910,14 @@ async function loadStats() {
             new Date(exp.reviewed_at).toDateString() === today
         );
         
-        // Update stats display
         document.getElementById('pendingCount').textContent = pending.length + pendingExp.length;
         document.getElementById('approvedCount').textContent = approvedToday.length + approvedExpToday.length;
         document.getElementById('rejectedCount').textContent = rejectedToday.length + rejectedExpToday.length;
         document.getElementById('inviteCount').textContent = activeInvites.length;
         
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error loading stats:', error);
     }
 }

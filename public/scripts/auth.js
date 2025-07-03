@@ -14,17 +14,15 @@ document.getElementById('toggleSignup').addEventListener('click', function()
     document.getElementById('toggleLogin').classList.remove('active');
 });
 
-// Auto-format invite code input
 document.getElementById('signupInviteCode').addEventListener('input', function(e) {
-    // Convert to uppercase and limit to 8 characters
-    let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-    if (value.length > 8) {
+    let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');///uppercase and 8 characters max
+    if (value.length > 8) 
+    {
         value = value.substring(0, 8);
     }
     e.target.value = value;
 });
 
-//signup
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -35,7 +33,8 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
 
     if (username && password && email && inviteCode) 
     {
-        if (inviteCode.length !== 8) {
+        if (inviteCode.length !== 8) 
+        {
             alert('Invite code must be exactly 8 characters long.');
             return;
         }
@@ -79,7 +78,8 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
 
-    if (username && password) {
+    if (username && password) 
+    {
         try 
         {
             const response = await fetch('/api/users/signin', 
