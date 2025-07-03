@@ -6,6 +6,8 @@ router.post('/signup', UserController.signup);
 
 router.post('/signin', UserController.signin);
 
-router.get('/leaderboard', UserController.leaderboard);
+router.get('/leaderboard', UserController.getTopUsers);
+
+router.get('/locations/top', UserController.getTopLocations);
 
 module.exports = router;

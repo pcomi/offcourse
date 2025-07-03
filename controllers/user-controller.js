@@ -1,4 +1,5 @@
 const User = require('../models/user-model');
+const Location = require('../models/location-model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validateInviteCode, useInviteCode } = require('./invite-controller');
@@ -113,18 +114,44 @@ exports.signin = async (req, res) => {
     }
 };
 
-exports.leaderboard = async (req, res) => {
-    const { username, level } = req.body;
-
+///get top users by level and experience (main leaderboard endpoint)
+exports.getTopUsers = async (req, res) => {
     try 
     {
-        console.log('Leaderboard request received:', req.body);
-        const users = await User.find({ level: { $gte: 1 } }).sort({ level: -1 }).limit(5);
-        res.json(users);
+        console.log('Fetching top users...');
+        
+        ///get top 10 users sorted by level (desc) then by experience (desc)
+        const topUsers = await User.find({}, 'username level experience -_id')
+            .sort({ level: -1, experience: -1 })
+            .limit(10);
+        
+        console.log(`Found ${topUsers.length} top users`);
+        res.json(topUsers);
     } 
     catch (error) 
     {
-        console.error('Error fetching leaderboard:', error);
+        console.error('Error fetching top users:', error);
         res.status(500).json({ message: 'Error fetching leaderboard' });
+    }
+};
+
+///get top locations by score
+exports.getTopLocations = async (req, res) => {
+    try 
+    {
+        console.log('Fetching top locations...');
+        
+        ///get top 20 locations sorted by score (desc)
+        const topLocations = await Location.find({}, 'name score address origin -_id')
+            .sort({ score: -1 })
+            .limit(20);
+        
+        console.log(`Found ${topLocations.length} top locations`);
+        res.json(topLocations);
+    } 
+    catch (error) 
+    {
+        console.error('Error fetching top locations:', error);
+        res.status(500).json({ message: 'Error fetching top locations' });
     }
 };
