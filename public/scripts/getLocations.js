@@ -72,7 +72,6 @@ const addLocationsToMap = async (map) => {
                 marker.bindPopup(popupContent);
 
                 marker.on('popupopen', () => {
-                    // View Details button
                     const detailsBtn = document.getElementById(`details-${location._id}`);
                     if (detailsBtn) {
                         detailsBtn.addEventListener('click', () => {
@@ -80,8 +79,7 @@ const addLocationsToMap = async (map) => {
                             window.location.href = `/details?id=${location._id}`;
                         });
                         
-                        // Add hover effect
-                        detailsBtn.addEventListener('mouseenter', () => {
+                        detailsBtn.addEventListener('mouseenter', () => {///effects
                             detailsBtn.style.backgroundColor = '#2980b9';
                         });
                         detailsBtn.addEventListener('mouseleave', () => {
@@ -89,21 +87,20 @@ const addLocationsToMap = async (map) => {
                         });
                     }
 
-                    // Explore button
                     const exploreBtn = document.getElementById(`explore-${location._id}`);
-                    if (exploreBtn) {
+                    if (exploreBtn) 
+                    {
                         exploreBtn.addEventListener('click', () => {
                             console.log('Opening exploration modal for:', location._id, locationName);
-                            // Check if openExplorationModal function exists (from locationExploration.js)
                             if (typeof openExplorationModal === 'function') {
                                 openExplorationModal(location._id, locationName);
-                            } else {
+                            } 
+                            else 
+                            {
                                 console.error('openExplorationModal function not found');
                                 alert('Exploration feature not available. Please refresh the page.');
                             }
                         });
-                        
-                        // Add hover effect
                         exploreBtn.addEventListener('mouseenter', () => {
                             exploreBtn.style.backgroundColor = '#229954';
                         });

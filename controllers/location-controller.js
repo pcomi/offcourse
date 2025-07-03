@@ -4,40 +4,48 @@ const Upload = require('../models/upload-model');
 const { getAllLocationsFromGoogleMaps, gridSearch } = require('../utils/location-utils');
 
 const getLocations = async (req, res) => {
-    try {
+    try 
+    {
         const locations = await Location.find();
         console.log('Fetched locations:', locations);
         res.json(locations);
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         console.error('Error fetching locations:', err);
         res.status(500).json({ error: 'Error fetching locations' });
     }
 };
 
-// Get a single location by ID (needed for detail page)
-const getLocationById = async (req, res) => {
-    try {
+const getLocationById = async (req, res) => {///for detail page
+    try 
+    {
         const { id } = req.params;
         const location = await Location.findById(id);
         
-        if (!location) {
+        if (!location) 
+        {
             return res.status(404).json({ error: 'Location not found' });
         }
 
         res.json(location);
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         console.error('Error fetching location:', err);
         res.status(500).json({ error: 'Error fetching location' });
     }
 };
 
-// Get images for a location
 const getLocationImages = async (req, res) => {
-    try {
+    try 
+    {
         const { id } = req.params;
         const images = await Upload.find({ location_id: id });
         res.json(images);
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         console.error('Error fetching location images:', err);
         res.status(500).json({ error: 'Error fetching location images' });
     }
@@ -49,21 +57,23 @@ const addAllLocations = async (req, res) => {
     const apiKey = 'AIzaSyC9S6sNtOMkoSQPR435hofXAqcU0lWYCXM';
     const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=${radius}&key=${apiKey}`;
 
-    try {
+    try 
+    {
         console.log('Making API request:', apiUrl);
         const response = await axios.get(apiUrl);
         const locations = response.data.results;
 
         const savedLocations = [];
-        for (const location of locations) {
-            // Check if location already exists by name and coordinates
+        for (const location of locations) 
+        {
             const existingLocation = await Location.findOne({ 
                 name: location.name,
                 latitude: location.geometry.location.lat,
                 longitude: location.geometry.location.lng
             });
 
-            if (!existingLocation) {
+            if (!existingLocation) 
+            {
                 const newLocation = new Location({
                     name: location.name,
                     latitude: location.geometry.location.lat,
@@ -91,9 +101,9 @@ const addAllLocations = async (req, res) => {
     }
 };
 
-// Add a new user-created location
 const addUserLocation = async (req, res) => {
-    try {
+    try 
+    {
         const { name, latitude, longitude, description, address } = req.body;
 
         const newLocation = new Location({
@@ -111,26 +121,31 @@ const addUserLocation = async (req, res) => {
             message: 'User location added successfully', 
             location: newLocation 
         });
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error adding user location:', error);
         res.status(500).json({ error: 'Error adding user location' });
     }
 };
 
-// Update location
 const updateLocation = async (req, res) => {
-    try {
+    try 
+    {
         const { id } = req.params;
         const updates = req.body;
 
         const location = await Location.findByIdAndUpdate(id, updates, { new: true });
 
-        if (!location) {
+        if (!location) 
+        {
             return res.status(404).json({ error: 'Location not found' });
         }
 
         res.json({ message: 'Location updated successfully', location });
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error updating location:', error);
         res.status(500).json({ error: 'Error updating location' });
     }

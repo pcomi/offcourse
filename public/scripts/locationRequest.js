@@ -6,19 +6,16 @@ const getLocationBtn = document.getElementById('getLocationBtn');
 const photoInput = document.getElementById('requestPhotos');
 const filePreview = document.getElementById('filePreview');
 
-// Open modal
 requestBtn.addEventListener('click', () => {
     modal.style.display = 'block';
 });
 
-// Close modal
 closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     form.reset();
     filePreview.innerHTML = '';
 });
 
-// Close modal when clicking outside
 window.addEventListener('click', (event) => {
     if (event.target === modal) {
         modal.style.display = 'none';
@@ -27,12 +24,12 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Handle file selection and preview
 photoInput.addEventListener('change', (event) => {
     const files = event.target.files;
     filePreview.innerHTML = '';
     
-    if (files.length > 5) {
+    if (files.length > 5) 
+    {
         alert('Maximum 5 files allowed');
         photoInput.value = '';
         return;
@@ -53,8 +50,7 @@ photoInput.addEventListener('change', (event) => {
             return;
         }
         
-        // Create preview
-        const reader = new FileReader();
+        const reader = new FileReader();///create preview
         reader.onload = (e) => {
             const previewItem = document.createElement('div');
             previewItem.className = 'preview-item';
@@ -68,9 +64,9 @@ photoInput.addEventListener('change', (event) => {
     });
 });
 
-// Get user's current location
 getLocationBtn.addEventListener('click', () => {
-    if (navigator.geolocation) {
+    if (navigator.geolocation) 
+    {
         getLocationBtn.textContent = 'Getting location...';
         getLocationBtn.disabled = true;
         
@@ -85,17 +81,19 @@ getLocationBtn.addEventListener('click', () => {
             getLocationBtn.textContent = 'Get My Location';
             getLocationBtn.disabled = false;
         });
-    } else {
+    } 
+    else 
+    {
         alert('Geolocation is not supported by this browser.');
     }
 });
 
-// Submit form with files
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
     
     const userData = TokenUtils.getUserDataFromToken();
-    if (!userData) {
+    if (!userData) 
+    {
         alert('You must be logged in to submit a location request.');
         return;
     }
@@ -103,7 +101,7 @@ form.addEventListener('submit', async (event) => {
     const formData = new FormData(form);
     formData.append('submitted_by', userData.username);
     
-    // Validate required fields
+    ///required fields:
     const name = formData.get('name');
     const latitude = parseFloat(formData.get('latitude'));
     const longitude = parseFloat(formData.get('longitude'));
@@ -113,46 +111,56 @@ form.addEventListener('submit', async (event) => {
         return;
     }
     
-    // Validate coordinates
-    if (isNaN(latitude) || isNaN(longitude)) {
+    if (isNaN(latitude) || isNaN(longitude)) 
+    {
         alert('Please enter valid numbers for latitude and longitude.');
         return;
     }
     
-    if (latitude < -90 || latitude > 90) {
+    if (latitude < -90 || latitude > 90) 
+    {
         alert('Latitude must be between -90 and 90.');
         return;
     }
     
-    if (longitude < -180 || longitude > 180) {
+    if (longitude < -180 || longitude > 180) 
+    {
         alert('Longitude must be between -180 and 180.');
         return;
     }
     
-    try {
+    try 
+    {
         const submitBtn = form.querySelector('.submit-btn');
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
         
         const response = await fetch('/api/requests', {
             method: 'POST',
-            body: formData // Don't set Content-Type, let browser set it for multipart
+            body: formData
         });
         
         const result = await response.json();
         
-        if (response.ok) {
+        if (response.ok) 
+        {
             alert(result.message);
             modal.style.display = 'none';
             form.reset();
             filePreview.innerHTML = '';
-        } else {
+        } 
+        else 
+        {
             alert(result.error || 'Error submitting request');
         }
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error submitting location request:', error);
         alert('Error submitting request. Please try again.');
-    } finally {
+    } 
+    finally 
+    {
         const submitBtn = form.querySelector('.submit-btn');
         submitBtn.textContent = 'Submit Request';
         submitBtn.disabled = false;
