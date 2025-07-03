@@ -31,6 +31,7 @@
 
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/popup.css">
+    <link rel="stylesheet" href="/styles/search.css">
 </head>
 <body>
 
@@ -52,20 +53,21 @@
     </nav>
 
     <div class="controls-panel">
-        <div class="search-container">
-            <h3>Search: <textarea></textarea></h3>
-        </div>
-
-        <div class="admin-controls">
-            <button id="addLocationBtn">Add Locations</button>
-            <button id="showGridsBtn">Show Grid</button>
-            <button id="gridBtn">Locations in grid</button>
-            <input type="number" id="row" placeholder="Enter Row" />
-            <input type="number" id="col" placeholder="Enter Column" />
+        <div class="search-section">
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search for locations...">
+                    <div class="search-icon">🔍</div>
+                </div>
+                <div id="searchResults" class="search-results" style="display: none;"></div>
+            </div>
         </div>
 
         <div class="user-controls">
-            <button id="requestLocationBtn" class="request-btn">Request New Location</button>
+            <button id="requestLocationBtn" class="request-btn">
+                <span class="btn-icon">📍</span>
+                <span class="btn-text">Request New Location</span>
+            </button>
         </div>
     </div>
 
@@ -214,6 +216,7 @@
 
     <div id="map"></div>
 
+    <script src="/scripts/search.js"></script>
     <script src="/scripts/getLocations.js"></script>
     <script type="module" src="/scripts/map.js"></script>
     <script src="/scripts/locationRequest.js"></script>

@@ -1,4 +1,4 @@
-var map = L.map('map').setView([45.9432, 24.9668], 7);
+window.map = L.map('map').setView([45.9432, 24.9668], 7);
 
 var normalTiles = L.tileLayer('https://api.maptiler.com/maps/backdrop/{z}/{x}/{y}.png?key=EYzsOICzwnKzN6KnoMqN', {
     tileSize: 512,
@@ -16,7 +16,7 @@ var satelliteTiles = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x
     attribution: '&copy; MapTiler &copy; OpenStreetMap contributors'
 });
 
-normalTiles.addTo(map);
+normalTiles.addTo(window.map);
 
 var baseMaps = 
 {
@@ -24,7 +24,7 @@ var baseMaps =
     "Satellite": satelliteTiles
 };
 
-L.control.layers(baseMaps).addTo(map);
+L.control.layers(baseMaps).addTo(window.map);
 
 navigator.geolocation.watchPosition(success, error);
 
@@ -41,7 +41,7 @@ function success(pos) {
     } 
     else 
     {
-        marker = L.marker([lat, long]).addTo(map);
+        marker = L.marker([lat, long]).addTo(window.map);
     }
 
     if (circle) 
@@ -51,15 +51,15 @@ function success(pos) {
     } 
     else 
     {
-        circle = L.circle([lat, long], { radius: accuracy }).addTo(map);
+        circle = L.circle([lat, long], { radius: accuracy }).addTo(window.map);
     }
 
     if (!zoomed) 
     {
-        zoomed = map.fitBounds(circle.getBounds());
+        zoomed = window.map.fitBounds(circle.getBounds());
     }
 
-    map.setView([lat, long]);
+    window.map.setView([lat, long]);
 }
 
 function error(err) 
@@ -131,7 +131,7 @@ function exploreLocation(locationName)
     console.log(`Exploring location: ${locationName}`);
 }
 
-addLocationsToMap(map);
+addLocationsToMap(window.map);///load
 
 let gridBoxes = [];
 
@@ -143,10 +143,10 @@ const addAllLocations = async (lat, long, radius = 150) => {
         const response = await axios.post(apiUrl, { lat, long, radius });
         const locations = response.data.locations;
 
-        map.eachLayer(layer => {
+        window.map.eachLayer(layer => {
             if (layer instanceof L.Marker) 
             {
-                map.removeLayer(layer);
+                window.map.removeLayer(layer);
             }
         });
 
@@ -164,7 +164,7 @@ const addAllLocations = async (lat, long, radius = 150) => {
                 </span>
             `;
 
-            const marker = L.marker([locationLat, locationLng], { icon: locationIcon }).addTo(map);
+            const marker = L.marker([locationLat, locationLng], { icon: locationIcon }).addTo(window.map);
             marker.bindPopup(popupContent);
 
         });
@@ -238,7 +238,7 @@ const gridBox = (lat, lng, size, row, col) => {
     const boxName = `Box Row ${row} Column ${col}`
 
     L.polygon(boxCoords, { color: 'red', weight: 2, fillOpacity: 0.5 })
-        .addTo(map)
+        .addTo(window.map)
         .bindPopup(boxName);
 };
 
@@ -282,4 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
             searchInGrid(rowNum, colNum, 0.02);
         });
     }
+    
+    console.log('Map initialized:', window.map);
 });

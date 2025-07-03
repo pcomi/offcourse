@@ -32,6 +32,12 @@ const addLocationsToMap = async (map) => {
         
         console.log('Fetched locations:', locations);
 
+        ///store locations for search functionality
+        if (typeof storeLocationsForSearch === 'function') 
+        {
+            storeLocationsForSearch(locations);
+        }
+
         locations.forEach(location => {
             if (location.latitude != null && location.longitude != null) 
             {
@@ -70,6 +76,10 @@ const addLocationsToMap = async (map) => {
 
                 const marker = L.marker([locationLat, locationLng], { icon: locationIcon }).addTo(map);
                 marker.bindPopup(popupContent);
+
+                ///store marker for search functionality
+                marker.locationData = location;
+                allMarkers.push(marker);
 
                 marker.on('popupopen', () => {
                     const detailsBtn = document.getElementById(`details-${location._id}`);

@@ -22,6 +22,7 @@ body {
     margin-left: 20vh;
     height: 80vh;
     width: 80%;
+    z-index: 1;
 }
 
 .navbar {
@@ -98,13 +99,6 @@ body {
     background-color: #c0392b;
 }
 
-.search-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
 .leaflet-popup-content {
     font-size: 14px;
     color: #333;
@@ -133,38 +127,118 @@ body {
     background-color: #2980b9;
 }
 
-/* Controls Panel */
+.leaflet-control-zoom {
+    z-index: 800 !important;
+}
+
+.leaflet-control-layers {
+    z-index: 800 !important;
+}
+
 .controls-panel {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 10px 20px;
-    background-color: rgba(51, 51, 51, 0.9);
+    padding: 15px 20px;
+    background: linear-gradient(135deg, rgba(44, 31, 106, 0.95), rgba(51, 51, 51, 0.95));
+    backdrop-filter: blur(10px);
     align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 900;
+    position: relative;
 }
 
-.admin-controls, .user-controls {
+.search-section {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.search-container {
+    position: relative;
+    z-index: 1000;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-sizing: border-box;
+}
+
+.search-input-wrapper input:focus {
+    outline: none;
+    border-color: #3498db;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.search-input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.user-controls {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
 .request-btn {
-    background-color: #27ae60;
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
+    padding: 10px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    min-width: 160px;
+    justify-content: center;
 }
 
 .request-btn:hover {
-    background-color: #229954;
+    background: linear-gradient(45deg, #229954, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
 }
 
-/* Modal Styles */
+.request-btn .btn-icon {
+    font-size: 16px;
+}
+
+.request-btn .btn-text {
+    white-space: nowrap;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -189,7 +263,6 @@ body {
     overflow-y: auto;
 }
 
-/* Special styling for exploration modal */
 .exploration-modal {
     max-width: 600px;
     background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
@@ -225,12 +298,10 @@ body {
     color: white;
 }
 
-/* Modal Body */
 .modal-body {
     padding: 25px;
 }
 
-/* Exploration Header */
 .exploration-header {
     display: flex;
     justify-content: space-between;
@@ -284,7 +355,6 @@ body {
     color: #bbb;
 }
 
-/* Form Styles */
 #locationRequestForm, #explorationForm {
     padding: 25px;
 }
@@ -336,7 +406,6 @@ body {
     font-family: inherit;
 }
 
-/* Rating Styles */
 .rating-container {
     position: relative;
 }
@@ -354,7 +423,6 @@ body {
     padding: 8px;
 }
 
-/* File Input Styles */
 .file-input {
     padding: 12px !important;
     border: 2px dashed #666 !important;
@@ -407,7 +475,6 @@ body {
     word-break: break-all;
 }
 
-/* Status Messages */
 .status-message {
     text-align: center;
     padding: 30px 20px;
@@ -441,7 +508,6 @@ body {
     color: white;
 }
 
-/* Loading */
 .loading-message {
     text-align: center;
     padding: 40px 20px;
@@ -462,7 +528,6 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Button Styles */
 .form-actions {
     display: flex;
     gap: 10px;
@@ -521,15 +586,84 @@ body {
     box-shadow: none;
 }
 
-/* Responsive */
+/*responsive*/
 @media (max-width: 768px) {
+    .navbar {
+        padding: 8px 15px;
+    }
+    
+    .navbar-container {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .logo img {
+        height: 50px;
+    }
+    
+    .nav-items {
+        margin: 0;
+        gap: 10px;
+    }
+    
+    .nav-items li {
+        margin: 0 8px;
+    }
+    
+    .nav-items a {
+        font-size: 14px;
+    }
+    
+    .user-info {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .user-info input {
+        padding: 4px 8px;
+        font-size: 12px;
+        min-width: 100px;
+    }
+    
+    .user-info .logout-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
     .controls-panel {
         flex-direction: column;
         align-items: stretch;
+        padding: 12px 15px;
+        gap: 12px;
     }
     
-    .admin-controls, .user-controls {
+    .search-section {
+        min-width: auto;
+        max-width: none;
+        width: 100%;
+    }
+    
+    .search-input-wrapper input {
+        padding: 10px 40px 10px 12px;
+        font-size: 14px;
+    }
+    
+    .user-controls {
         justify-content: center;
+        width: 100%;
+    }
+    
+    .request-btn {
+        min-width: auto;
+        width: 100%;
+        max-width: 250px;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .request-btn .btn-text {
+        display: block;
+        font-size: 13px;
     }
     
     .modal-content, .exploration-modal {
@@ -555,10 +689,81 @@ body {
     #map {
         margin-left: 0;
         width: 100%;
-        height: 70vh;
+        height: calc(100vh - 180px);
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 5px 10px;
     }
     
     .logo img {
-        height: 10vh;
+        height: 40px;
+    }
+    
+    .nav-items a {
+        font-size: 12px;
+    }
+    
+    .user-info input {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    
+    .user-info .logout-btn {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    
+    .controls-panel {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    
+    .search-input-wrapper input {
+        padding: 8px 35px 8px 10px;
+        font-size: 16px;
+    }
+    
+    .search-icon {
+        right: 10px;
+        font-size: 14px;
+    }
+    
+    .request-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        max-width: 200px;
+    }
+    
+    .request-btn .btn-text {
+        font-size: 12px;
+    }
+    
+    .request-btn .btn-icon {
+        font-size: 14px;
+    }
+    
+    .modal-content {
+        width: 98%;
+        margin: 5% auto;
+    }
+    
+    #locationRequestForm, #explorationForm {
+        padding: 15px;
+    }
+    
+    .form-actions {
+        gap: 8px;
+    }
+    
+    .secondary-btn, .submit-btn, .exploration-submit {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    
+    #map {
+        height: calc(100vh - 150px);
     }
 }
