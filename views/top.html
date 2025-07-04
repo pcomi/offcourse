@@ -8,8 +8,11 @@
     <script src="/utils/verify-token.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (!TokenUtils.isLoggedIn()) {
+            ///redirect to 403 if not logged in
+            if (!TokenUtils.isLoggedIn()) 
+            {
                 window.location.href = '/403';
+                return;
             }
         });
     </script>
@@ -23,6 +26,8 @@
             <ul class="nav-items">
                 <li><a href="/main">Map</a></li>
                 <li><a href="/about">About Us</a></li>
+                <!--show admin link only for admin user-->
+                <li id="adminNavItem" style="display: none;"><a href="/admin">Admin</a></li>
                 <div class="user-info">
                     <input id="username" type="text" value="@username" readonly>
                     <button id="logoutButton" class="logout-btn">Logout</button>
@@ -76,6 +81,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        ///show admin nav item only for admin users
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = TokenUtils.getUserDataFromToken();
+            if (userData && userData.username === 'admin') 
+            {
+                const adminNavItem = document.getElementById('adminNavItem');
+                if (adminNavItem) 
+                {
+                    adminNavItem.style.display = 'block';
+                }
+            }
+        });
+    </script>
 
     <script src="/scripts/leaderboard.js"></script>
 </body>

@@ -21,19 +21,20 @@ body {
     background-color: #07011e;
     color: #ffffff;
     font-family: 'CustomFont', sans-serif;
-    font-size: 42px;
+    font-size: 18px;
     margin: 0;
     padding: 0;
 }
 
 .navbar {
     background-color: #333;
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80px;
+    min-height: 70px;
     position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
@@ -44,39 +45,50 @@ body {
 }
 
 .logo img {
-    height: 70px;
+    height: 60px;
+    transition: height 0.3s ease;
 }
 
 .nav-items {
     list-style: none;
     display: flex;
     justify-content: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-items li {
-    margin: 0 15px;
+    margin: 0;
 }
 
 .nav-items a {
     color: #fff;
     text-decoration: none;
-    font-size: 36px;
+    font-size: 18px;
     transition: color 0.3s;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 .nav-items a:hover {
-    color: #ddd;
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
 }
 
 .form-container {
-    width: 300px;
+    width: 90%;
+    max-width: 400px;
     margin: 80px auto;
-    background-color: #444;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(68, 68, 68, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     text-align: center;
     position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .form-toggle {
@@ -94,15 +106,18 @@ body {
     background-color: #2c1f6a;
     color: #fff;
     border: none;
-    padding: 10px 0;
+    padding: 12px 0;
     cursor: pointer;
-    border-radius: 5px 5px 0 0;
-    transition: background-color 0.3s;
-    font-size: 20px; 
+    border-radius: 10px 10px 0 0;
+    transition: all 0.3s;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .form-toggle button.active {
     background-color: #3b2a8c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 42, 140, 0.3);
 }
 
 .form-toggle button:hover {
@@ -119,87 +134,298 @@ body {
 
 .labels {
     font-family: 'CustomFont2', sans-serif;
-    font-size: 48px; 
+    font-size: 2.5em;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    background: linear-gradient(45deg, #326688, #4935ae);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
-    font-size: 24px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #ddd;
+    font-weight: bold;
 }
 
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-    width: 80%; 
-    padding: 8px; 
-    border: none;
-    border-radius: 5px;
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #555;
+    border-radius: 10px;
     background-color: #555;
     color: #fff;
-    margin: 0 auto; 
-    display: block; 
+    margin: 0;
+    display: block;
+    font-size: 15px;
+    transition: all 0.3s;
+    box-sizing: border-box;
 }
 
 input:focus {
     outline: none;
     background-color: #666;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
 .form-btn {
     width: 100%;
-    padding: 10px;
-    background-color: #2c1f6a;
+    padding: 12px;
+    background: linear-gradient(45deg, #2c1f6a, #3498db);
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 18px; 
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
 .form-btn:hover {
-    background-color: #1b0f4b;
+    background: linear-gradient(45deg, #1b0f4b, #2980b9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
 }
 
 .invite-notice {
     background: linear-gradient(135deg, #2c1f6a, #3498db);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .invite-notice p {
     margin: 0;
     color: #fff;
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .input-help {
     display: block;
     font-size: 12px;
     color: #bbb;
-    margin-top: 5px;
+    margin-top: 6px;
     font-style: italic;
 }
 
-/* Style for invite code input */
 #signupInviteCode {
     font-family: 'Courier New', monospace;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 #signupInviteCode::placeholder {
     letter-spacing: normal;
     font-weight: normal;
+    text-transform: none;
+}
+
+@media (max-width: 1023px) {
+    .navbar {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+        min-height: auto;
+    }
+    
+    .logo {
+        position: static;
+        transform: none;
+        order: 1;
+    }
+    
+    .logo img {
+        height: 50px;
+    }
+    
+    .nav-items {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        margin-top: 15px;
+        gap: 20px;
+    }
+    
+    .nav-items a {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+    
+    body {
+        font-size: 16px;
+    }
+    
+    .form-container {
+        margin: 60px auto;
+        padding: 25px;
+    }
+    
+    .labels {
+        font-size: 2.2em;
+    }
+    
+    .form-toggle button {
+        font-size: 15px;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .logo img {
+        height: 45px;
+    }
+    
+    .nav-items {
+        gap: 15px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-items a {
+        font-size: 15px;
+        padding: 5px 10px;
+    }
+    
+    body {
+        font-size: 15px;
+    }
+    
+    .form-container {
+        width: 95%;
+        margin: 40px auto;
+        padding: 20px;
+    }
+    
+    .labels {
+        font-size: 1.9em;
+        margin-bottom: 20px;
+    }
+    
+    .form-toggle button {
+        font-size: 14px;
+        padding: 8px 0;
+    }
+    
+    label {
+        font-size: 15px;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .form-btn {
+        padding: 10px;
+        font-size: 15px;
+    }
+    
+    .invite-notice {
+        padding: 15px;
+    }
+    
+    .invite-notice p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 8px 10px;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .nav-items {
+        gap: 12px;
+        margin-top: 10px;
+    }
+    
+    .nav-items a {
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+    
+    .form-container {
+        width: 98%;
+        margin: 30px auto;
+        padding: 18px;
+    }
+    
+    .labels {
+        font-size: 1.6em;
+        margin-bottom: 18px;
+    }
+    
+    .form-toggle {
+        top: -40px;
+    }
+    
+    .form-toggle button {
+        font-size: 13px;
+        padding: 7px 0;
+    }
+    
+    .input-group {
+        margin-bottom: 18px;
+    }
+    
+    label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        padding: 9px 10px;
+        font-size: 13px;
+    }
+    
+    .form-btn {
+        padding: 9px;
+        font-size: 14px;
+    }
+    
+    .invite-notice {
+        padding: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .invite-notice p {
+        font-size: 13px;
+    }
+    
+    .input-help {
+        font-size: 11px;
+        margin-top: 4px;
+    }
 }

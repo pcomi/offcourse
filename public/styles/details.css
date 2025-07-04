@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Font3';
+    src: url('/fonts/Font3.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-image: url('/images/bg3.jpeg');
     background-size: cover;
@@ -13,7 +20,7 @@ body {
     background-attachment: fixed;
     background-color: #07011e;
     color: #ffffff;
-    font-family: 'CustomFont', sans-serif;
+    font-family: 'Font3', sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -21,10 +28,12 @@ body {
 
 .navbar {
     background-color: #333;
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-container {
@@ -36,7 +45,8 @@ body {
 }
 
 .logo img {
-    height: 70px;
+    height: 60px;
+    transition: height 0.3s ease;
 }
 
 .nav-items {
@@ -45,48 +55,57 @@ body {
     flex-grow: 1;
     justify-content: center;
     margin: 0 20px;
+    gap: 30px;
 }
 
 .nav-items li {
-    margin: 0 15px;
+    margin: 0;
 }
 
 .nav-items a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     transition: color 0.3s;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'CustomFont', sans-serif;
 }
 
 .nav-items a:hover {
-    color: #ddd;
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
 }
 
 .user-info {
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
 .user-info input {
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px;
     font-size: 14px;
     color: #fff;
     background-color: #444;
-    border-radius: 5px;
-    margin-right: 10px;
+    border-radius: 8px;
+    min-width: 120px;
+    font-family: 'Font3', sans-serif;
 }
 
 .user-info .logout-btn {
     background-color: #e74c3c;
     color: #fff;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
     transition: background-color 0.3s;
+    font-family: 'Font3', sans-serif;
 }
 
 .user-info .logout-btn:hover {
@@ -94,58 +113,71 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 25px;
 }
 
 .back-button button {
     background-color: #2c1f6a;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 20px;
-    transition: background-color 0.3s;
+    margin-bottom: 25px;
+    transition: all 0.3s;
+    font-weight: bold;
+    font-family: 'Font3', sans-serif;
 }
 
 .back-button button:hover {
     background-color: #1b0f4b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(44, 31, 106, 0.3);
 }
 
 .location-detail {
-    background-color: rgba(50, 50, 50, 0.9);
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background-color: rgba(50, 50, 50, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .location-header {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     text-align: center;
 }
 
 .location-header h1 {
-    font-size: 2.5em;
-    margin: 0 0 15px 0;
+    font-size: 3em;
+    margin: 0 0 20px 0;
     color: #fff;
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Font3', sans-serif;
+    font-weight: 600;
 }
 
 .location-meta {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .origin-badge {
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 15px;
     font-weight: bold;
     background-color: #27ae60;
     color: white;
+    font-family: 'Font3', sans-serif;
 }
 
 .origin-badge.users {
@@ -155,49 +187,53 @@ body {
 .content-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 30px;
+    gap: 40px;
 }
 
 .main-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .photos-section {
     background-color: rgba(60, 60, 60, 0.8);
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(5px);
 }
 
 .photos-section h3 {
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     color: #fff;
-    font-size: 1.3em;
-    border-bottom: 2px solid #2c1f6a;
-    padding-bottom: 10px;
+    font-size: 1.5em;
+    border-bottom: 3px solid #2c1f6a;
+    padding-bottom: 12px;
+    font-family: 'Font3', sans-serif;
+    font-weight: 500;
 }
 
 .photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    min-height: 150px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    min-height: 200px;
 }
 
 .photo-gallery img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.3s;
-    border: 2px solid transparent;
+    transition: all 0.3s;
+    border: 3px solid transparent;
 }
 
 .photo-gallery img:hover {
     transform: scale(1.05);
     border-color: #2c1f6a;
+    box-shadow: 0 6px 20px rgba(44, 31, 106, 0.4);
 }
 
 .no-photos {
@@ -205,100 +241,210 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgba(100, 100, 100, 0.3);
-    border-radius: 8px;
-    height: 150px;
+    border-radius: 12px;
+    height: 200px;
     color: #ccc;
     font-style: italic;
     grid-column: 1 / -1;
+    font-size: 1.1em;
+    font-family: 'Font3', sans-serif;
 }
 
 .info-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .info-card {
     background-color: rgba(60, 60, 60, 0.8);
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(5px);
 }
 
 .info-card h3 {
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     color: #fff;
-    font-size: 1.3em;
-    border-bottom: 2px solid #2c1f6a;
-    padding-bottom: 10px;
+    font-size: 1.5em;
+    border-bottom: 3px solid #2c1f6a;
+    padding-bottom: 12px;
+    font-family: 'Font3', sans-serif;
+    font-weight: 500;
 }
 
 .info-grid {
     display: grid;
-    gap: 10px;
+    gap: 15px;
 }
 
 .info-item {
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
-    padding: 8px 0;
+    padding: 12px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-item strong {
     color: #ddd;
+    font-size: 1em;
+    font-family: 'Font3', sans-serif;
 }
 
 .info-item span:last-child {
     color: #fff;
+    font-size: 1em;
+    font-family: 'Font3', sans-serif;
 }
 
 .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .map-section {
     background-color: rgba(60, 60, 60, 0.8);
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(5px);
 }
 
 .map-section h3 {
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     color: #fff;
-    font-size: 1.2em;
-    border-bottom: 2px solid #2c1f6a;
-    padding-bottom: 10px;
+    font-size: 1.4em;
+    border-bottom: 3px solid #2c1f6a;
+    padding-bottom: 12px;
+    font-family: 'Font3', sans-serif;
+    font-weight: 500;
 }
 
 #detailMap {
-    height: 250px;
-    border-radius: 8px;
+    height: 300px;
+    border-radius: 12px;
     border: 1px solid #555;
 }
 
 #locationDescription {
-    line-height: 1.6;
+    line-height: 1.7;
     margin: 0;
+    font-size: 1.05em;
+    font-family: 'Font3', sans-serif;
 }
 
-/* Responsive design */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
+    .navbar {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+        min-height: auto;
+    }
+    
+    .navbar-container {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .logo img {
+        height: 50px;
+    }
+    
+    .nav-items {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin: 10px 0 0 0;
+        gap: 20px;
+    }
+    
+    .nav-items a {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+    
+    .user-info {
+        gap: 8px;
+    }
+    
+    .user-info input {
+        padding: 6px 10px;
+        font-size: 13px;
+        min-width: 100px;
+    }
+    
+    .user-info .logout-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
     .content-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 25px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    .location-detail {
+        padding: 30px;
+    }
+    
+    .location-header h1 {
+        font-size: 2.5em;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+    }
+    
+    .photo-gallery img {
+        height: 180px;
     }
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .navbar-container {
+        gap: 10px;
+    }
+    
+    .logo img {
+        height: 45px;
+    }
+    
+    .nav-items {
+        gap: 15px;
+        margin: 8px 0 0 0;
+    }
+    
+    .nav-items a {
+        font-size: 15px;
+        padding: 5px 10px;
+    }
+    
+    .user-info input {
+        font-size: 12px;
+        padding: 5px 8px;
+        min-width: 90px;
+    }
+    
+    .user-info .logout-btn {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+    
     .container {
-        padding: 10px;
+        padding: 15px;
     }
     
     .location-detail {
-        padding: 20px;
+        padding: 25px;
     }
     
     .location-header h1 {
@@ -308,10 +454,114 @@ body {
     .location-meta {
         flex-direction: column;
         align-items: center;
+        gap: 10px;
     }
     
     .info-item {
         grid-template-columns: 1fr;
-        gap: 5px;
+        gap: 8px;
+        text-align: left;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+    
+    .photo-gallery img {
+        height: 150px;
+    }
+    
+    #detailMap {
+        height: 250px;
+    }
+    
+    .back-button button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 8px 10px;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .nav-items {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-items a {
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+    
+    .user-info {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .user-info input {
+        font-size: 11px;
+        padding: 4px 6px;
+        min-width: 80px;
+    }
+    
+    .user-info .logout-btn {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    
+    .container {
+        padding: 12px;
+    }
+    
+    .location-detail {
+        padding: 20px;
+    }
+    
+    .location-header h1 {
+        font-size: 1.7em;
+    }
+    
+    .photos-section, .info-card, .map-section {
+        padding: 20px;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+    }
+    
+    .photo-gallery img {
+        height: 130px;
+    }
+    
+    .no-photos {
+        height: 150px;
+        font-size: 1em;
+    }
+    
+    #detailMap {
+        height: 200px;
+    }
+    
+    .back-button button {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    
+    .info-card h3, .photos-section h3, .map-section h3 {
+        font-size: 1.3em;
+    }
+    
+    .origin-badge {
+        padding: 6px 15px;
+        font-size: 13px;
     }
 }
