@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despre Noi - Off Course Map</title>
     <link rel="stylesheet" href="/styles/about-us.css">
+    <script src="/utils/verify-token.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -14,7 +15,10 @@
                 <img src="/logo/logo.jpeg" alt="Logo">
             </a>
             <ul class="nav-items">
-                <li><a id="login" href="/login">Login</a></li>
+                <li id="loginNavItem"><a href="/login">Login</a></li>
+                <li id="mainNavItem" style="display: none;"><a href="/main">Map</a></li>
+                <li id="topNavItem" style="display: none;"><a href="/top">Top</a></li>
+                <li id="adminNavItem" style="display: none;"><a href="/admin">Admin</a></li>
             </ul>
         </div>
     </nav>
@@ -24,7 +28,7 @@
         <p>Bine ai venit pe Off-Course, platforma dedicată pasionaților de explorare urbană, care doresc să descopere comorile ascunse și abandonate ale României.</p>
 
         <h2>Acces Limitat 🚫</h2>
-        <p>Off-Course este un site „invite only”, ceea ce înseamnă că accesul este rezervat celor care sunt cu adevărat pasionați de explorarea urbană (și responsabili). Dacă dorești să te alături, te rugăm să ne contactezi pentru o invitație.</p>
+        <p>Off-Course este un site „invite only", ceea ce înseamnă că accesul este rezervat celor care sunt cu adevărat pasionați de explorarea urbană (și responsabili). Dacă dorești să te alături, te rugăm să ne contactezi pentru o invitație.</p>
 
         <h2>Cum Functioneaza 🗺️</h2>
         <p>Folosind Google Maps API, am cartografiat numeroase locuri abandonate din întreaga Românie. Interfața site-ului îți permite să localizezi și să explorezi aceste locații ascunse ușor. Similar cu Pokémon GO, poți să primești EXP pentru fiecare locație vizitată și să dai level up.</p>
@@ -32,6 +36,39 @@
         <h2>Alatura-te Comunitatii Noastre 🤝</h2>
         <p>Explorarea urbană este mai plăcută atunci când este împărtășită. Te invităm să te alături serverului nostru dedicat Urbex Romania pe Discord. <a href="https://discord.gg/ykv9DvJHsP" class="discord-button">LINK 🔗</a></p>
     </div>
+
+    <script>
+        ///show appropriate navigation based on login status
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginNavItem = document.getElementById('loginNavItem');
+            const mainNavItem = document.getElementById('mainNavItem');
+            const topNavItem = document.getElementById('topNavItem');
+            const adminNavItem = document.getElementById('adminNavItem');
+            
+            if (TokenUtils.isLoggedIn()) 
+            {
+                ///user is logged in, show map and top links, hide login
+                loginNavItem.style.display = 'none';
+                mainNavItem.style.display = 'block';
+                topNavItem.style.display = 'block';
+                
+                ///show admin link only for admin users
+                const userData = TokenUtils.getUserDataFromToken();
+                if (userData && userData.username === 'admin') 
+                {
+                    adminNavItem.style.display = 'block';
+                }
+            } 
+            else 
+            {
+                ///user is not logged in, show only login link
+                loginNavItem.style.display = 'block';
+                mainNavItem.style.display = 'none';
+                topNavItem.style.display = 'none';
+                adminNavItem.style.display = 'none';
+            }
+        });
+    </script>
 
 </body>
 </html>

@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Font3';
+    src: url('/fonts/Font3.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-image: url('/images/bg3.jpeg');
     background-size: cover;
@@ -13,7 +20,7 @@ body {
     background-attachment: fixed;
     background-color: #07011e;
     color: #ffffff;
-    font-family: 'CustomFont', sans-serif;
+    font-family: 'Font3', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -63,6 +70,7 @@ body {
     font-weight: bold;
     font-size: 16px;
     transition: color 0.3s;
+    font-family: 'CustomFont', sans-serif;
 }
 
 .nav-items a:hover {
@@ -82,6 +90,7 @@ body {
     background-color: #444;
     border-radius: 5px;
     margin-right: 10px;
+    font-family: 'Font3', sans-serif;
 }
 
 .user-info .logout-btn {
@@ -93,6 +102,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    font-family: 'Font3', sans-serif;
 }
 
 .user-info .logout-btn:hover {
@@ -102,6 +112,7 @@ body {
 .leaflet-popup-content {
     font-size: 14px;
     color: #333;
+    font-family: 'Font3', sans-serif;
 }
 
 .leaflet-popup-content strong {
@@ -109,6 +120,7 @@ body {
     margin-bottom: 8px;
     color: #07011e;
     font-size: 16px;
+    font-family: 'Font3', sans-serif;
 }
 
 .leaflet-popup-content button {
@@ -121,6 +133,7 @@ body {
     font-size: 14px;
     margin-top: 5px;
     transition: background-color 0.3s;
+    font-family: 'Font3', sans-serif;
 }
 
 .leaflet-popup-content button:hover {
@@ -173,7 +186,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     font-size: 13px;
-    font-family: inherit;
+    font-family: 'Font3', sans-serif;
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
     box-sizing: border-box;
@@ -223,6 +236,7 @@ body {
     box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
     min-width: 160px;
     justify-content: center;
+    font-family: 'Font3', sans-serif;
 }
 
 .request-btn:hover {
@@ -261,6 +275,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     max-height: 90vh;
     overflow-y: auto;
+    font-family: 'Font3', sans-serif;
 }
 
 .exploration-modal {
@@ -282,6 +297,8 @@ body {
     margin: 0;
     color: white;
     font-size: 1.5em;
+    font-family: 'Font3', sans-serif;
+    font-weight: 500;
 }
 
 .close {
@@ -315,6 +332,8 @@ body {
     margin: 0;
     color: #fff;
     font-size: 1.3em;
+    font-family: 'Font3', sans-serif;
+    font-weight: 500;
 }
 
 .exp-badge {
@@ -334,6 +353,7 @@ body {
 .exp-text {
     font-weight: bold;
     font-size: 0.9em;
+    font-family: 'Font3', sans-serif;
 }
 
 .exploration-info {
@@ -347,6 +367,7 @@ body {
 .exploration-info p {
     margin: 8px 0;
     line-height: 1.4;
+    font-family: 'Font3', sans-serif;
 }
 
 .exploration-info .note {
@@ -375,6 +396,7 @@ body {
     color: #ddd;
     font-weight: bold;
     font-size: 1em;
+    font-family: 'Font3', sans-serif;
 }
 
 .form-group input,
@@ -389,6 +411,7 @@ body {
     font-size: 14px;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    font-family: 'Font3', sans-serif;
 }
 
 .form-group input:focus,
@@ -403,7 +426,7 @@ body {
 .form-group textarea {
     resize: vertical;
     min-height: 100px;
-    font-family: inherit;
+    font-family: 'Font3', sans-serif;
 }
 
 .rating-container {
@@ -443,6 +466,7 @@ body {
 .file-info small {
     color: #bbb;
     font-size: 12px;
+    font-family: 'Font3', sans-serif;
 }
 
 .file-preview {
@@ -473,6 +497,7 @@ body {
     color: #bbb;
     margin-top: 5px;
     word-break: break-all;
+    font-family: 'Font3', sans-serif;
 }
 
 .status-message {
@@ -483,12 +508,15 @@ body {
 .status-message h3 {
     margin: 15px 0 10px 0;
     font-size: 1.4em;
+    font-family: 'Font3', sans-serif;
+    font-weight: 500;
 }
 
 .status-message p {
     margin: 0;
     color: #ccc;
     line-height: 1.5;
+    font-family: 'Font3', sans-serif;
 }
 
 .status-icon {
@@ -547,6 +575,7 @@ body {
     font-size: 14px;
     transition: all 0.3s ease;
     font-weight: 500;
+    font-family: 'Font3', sans-serif;
 }
 
 .secondary-btn:hover {
@@ -571,6 +600,7 @@ body {
     transition: all 0.3s ease;
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    font-family: 'Font3', sans-serif;
 }
 
 .submit-btn:hover, .exploration-submit:hover {

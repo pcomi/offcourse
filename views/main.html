@@ -9,9 +9,11 @@
     <script src="/utils/verify-token.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            ///redirect to 403 if not logged in
             if (!TokenUtils.isLoggedIn()) 
             {
                 window.location.href = '/403';
+                return;
             }
         });
     </script>
@@ -44,6 +46,8 @@
                 <li><a href="/main">Map</a></li>
                 <li><a href="/top">Top</a></li>
                 <li><a href="/about">About Us</a></li>
+                <!--show admin link only for admin user-->
+                <li id="adminNavItem" style="display: none;"><a href="/admin">Admin</a></li>
             </ul>
             <div class="user-info">
                 <input id="username" type="text" value="@username" readonly>
@@ -215,6 +219,21 @@
     </div>
 
     <div id="map"></div>
+
+    <script>
+        ///show admin nav item only for admin users
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = TokenUtils.getUserDataFromToken();
+            if (userData && userData.username === 'admin') 
+            {
+                const adminNavItem = document.getElementById('adminNavItem');
+                if (adminNavItem) 
+                {
+                    adminNavItem.style.display = 'block';
+                }
+            }
+        });
+    </script>
 
     <script src="/scripts/search.js"></script>
     <script src="/scripts/getLocations.js"></script>

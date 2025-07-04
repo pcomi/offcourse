@@ -9,8 +9,19 @@
     <script src="/utils/verify-token.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (!TokenUtils.isLoggedIn()) {
+            ///redirect to 403 if not logged in
+            if (!TokenUtils.isLoggedIn()) 
+            {
                 window.location.href = '/403';
+                return;
+            }
+            
+            ///redirect to 403 if not admin user
+            const userData = TokenUtils.getUserDataFromToken();
+            if (!userData || userData.username !== 'admin') 
+            {
+                window.location.href = '/403';
+                return;
             }
         });
     </script>
